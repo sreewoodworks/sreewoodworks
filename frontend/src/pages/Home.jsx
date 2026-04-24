@@ -1,45 +1,64 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+  AnimatePresence,
+} from 'framer-motion';
 
-/* ---- Data ---- */
+/* ─── Animation Variants ─── */
+const ease = [0.22, 1, 0.36, 1];
+const fadeUp  = { hidden: { opacity: 0, y: 48   }, visible: { opacity: 1, y: 0     } };
+const scaleIn = { hidden: { opacity: 0, scale: 0.88 }, visible: { opacity: 1, scale: 1 } };
+const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
+
+/* ─── Data ─── */
 const services = [
-  { icon: '🍳', label: 'Kitchen',   title: 'Modular Kitchen',    desc: 'Smart, space-saving kitchen designs with premium hardware and laminates.', badge: 'Popular' },
-  { icon: '🚪', label: 'Wardrobe',  title: 'Wardrobes',          desc: 'Floor-to-ceiling wardrobes with custom compartments for every lifestyle.',  badge: 'Trending' },
-  { icon: '💼', label: 'Office',    title: 'Office Furniture',   desc: 'Ergonomic, professional workspaces built for productivity and style.',       badge: null },
-  { icon: '🪑', label: 'Custom',    title: 'Custom Carpentry',   desc: 'One-of-a-kind pieces crafted exactly to your vision and specifications.',   badge: 'New' },
+  { icon: '🍳', label: 'Kitchen',  title: 'Modular Kitchen',  desc: 'Smart, space-saving kitchen designs with premium hardware and laminates.', badge: 'Popular',  img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80' },
+  { icon: '🚪', label: 'Wardrobe', title: 'Wardrobes',        desc: 'Floor-to-ceiling wardrobes with custom compartments for every lifestyle.',  badge: 'Trending', img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80' },
+  { icon: '💼', label: 'Office',   title: 'Office Furniture', desc: 'Ergonomic, professional workspaces built for productivity and style.',       badge: null,       img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80' },
+  { icon: '🪑', label: 'Custom',   title: 'Custom Carpentry', desc: 'One-of-a-kind pieces crafted exactly to your vision and specifications.',   badge: 'New',      img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80' },
+];
+
+const craftProcess = [
+  { step: '01', icon: '✏️', title: 'Design Consultation', desc: 'We visit your space, understand your needs, and create detailed 3D renders so you can visualise every corner before production begins.' },
+  { step: '02', icon: '🌳', title: 'Material Selection',  desc: 'Choose from Grade-A teak, marine ply, and imported laminates. We walk you through samples and recommend the best fit for your budget.' },
+  { step: '03', icon: '🪚', title: 'Master Crafting',     desc: 'Our 35-member workshop team cuts, finishes, and assembles every piece in-house with ±1mm tolerances and triple quality checks.' },
+  { step: '04', icon: '🏠', title: 'Clean Installation',  desc: 'We arrive on schedule, install with precision, clean up completely, and hand over a space ready to live in — same day.' },
+];
+
+const hScrollItems = [
+  { icon: '🍳', title: 'Modular Kitchens',  sub: 'Where cooking becomes a pleasure.',    bg: '#F5F0E0' },
+  { icon: '🚪', title: 'Wardrobes',         sub: 'Every compartment, perfectly placed.',  bg: '#EDE8D5' },
+  { icon: '💼', title: 'Office Furniture',  sub: 'Spaces that inspire great work.',       bg: '#E8DDD0' },
+  { icon: '🪵', title: 'Custom Carpentry',  sub: 'One-of-a-kind — just like you.',        bg: '#DDD0C0' },
+  { icon: '📺', title: 'TV & Living Units', sub: 'The focal point of every living room.', bg: '#D4C5B0' },
 ];
 
 const whyItems = [
-  { icon: '🔨', title: 'Skilled Craftsmanship',   desc: '15+ years of mastering joinery, finishing and bespoke woodwork by expert craftsmen.' },
-  { icon: '🌳', title: 'Premium Materials',        desc: 'We source Grade-A teak, marine ply, and imported laminates for lasting quality.' },
-  { icon: '📅', title: 'On-Time Delivery',         desc: 'Strict project timelines backed by weekly progress updates and clear milestones.' },
-  { icon: '✏️', title: '100% Custom Designs',     desc: 'Every piece is designed from scratch — no off-the-shelf templates, ever.' },
+  { icon: '🔨', title: 'Skilled Craftsmanship', desc: '15+ years of mastering joinery, finishing and bespoke woodwork by expert craftsmen.' },
+  { icon: '🌳', title: 'Premium Materials',      desc: 'We source Grade-A teak, marine ply, and imported laminates for lasting quality.'     },
+  { icon: '📅', title: 'On-Time Delivery',       desc: 'Strict project timelines backed by weekly progress updates and clear milestones.'     },
+  { icon: '✏️', title: '100% Custom Designs',   desc: 'Every piece is designed from scratch — no off-the-shelf templates, ever.'           },
 ];
 
 const projects = [
-  { icon: '🍳', label: 'Kitchen', title: 'Jubilee Hills Kitchen Makeover',   cat: 'Kitchen' },
-  { icon: '🚪', label: 'Bedroom', title: 'Gachibowli Master Bedroom Suite',  cat: 'Bedroom' },
-  { icon: '💼', label: 'Office',  title: 'Madhapur Corporate Workspace',     cat: 'Office' },
-  { icon: '🏠', label: 'Living',  title: 'Banjara Hills Living Room Unit',   cat: 'Custom' },
-  { icon: '📚', label: 'Library', title: 'Hitech City Home Library',         cat: 'Custom' },
+  { icon: '🍳', label: 'Kitchen', title: 'Jubilee Hills Kitchen Makeover',  cat: 'Kitchen', img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80' },
+  { icon: '🚪', label: 'Bedroom', title: 'Gachibowli Master Bedroom Suite', cat: 'Bedroom', img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80' },
+  { icon: '💼', label: 'Office',  title: 'Madhapur Corporate Workspace',    cat: 'Office',  img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80' },
+  { icon: '🏠', label: 'Living',  title: 'Banjara Hills Living Room Unit',  cat: 'Custom',  img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80' },
+  { icon: '📚', label: 'Library', title: 'Hitech City Home Library',        cat: 'Custom',  img: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=600&q=80' },
 ];
 
 const testimonials = [
-  {
-    initial: 'R', name: 'Rajesh Mehta', role: 'Homeowner, Jubilee Hills',
-    text: 'WoodCraft transformed our entire home. The modular kitchen is stunning — every detail was executed perfectly. Delivery was on time and the team was professional throughout.',
-  },
-  {
-    initial: 'P', name: 'Priya Sharma', role: 'Interior Designer, Hyderabad',
-    text: 'I recommend WoodCraft to all my clients. The quality of their wardrobes and TV units is unmatched. Custom finishes are executed exactly as designed — no surprises.',
-  },
-  {
-    initial: 'A', name: 'Arjun Reddy', role: 'Tech Startup Founder, Madhapur',
-    text: 'Our office furniture from WoodCraft is both functional and beautiful. The team understood our brand aesthetic and delivered a workspace our employees love.',
-  },
+  { initial: 'R', name: 'Rajesh Mehta',  role: 'Homeowner, Jubilee Hills',       text: 'WoodCraft transformed our entire home. The modular kitchen is stunning — every detail was executed perfectly. Delivery was on time and the team was professional throughout.' },
+  { initial: 'P', name: 'Priya Sharma',  role: 'Interior Designer, Hyderabad',   text: 'I recommend WoodCraft to all my clients. The quality of their wardrobes and TV units is unmatched. Custom finishes are executed exactly as designed — no surprises.'        },
+  { initial: 'A', name: 'Arjun Reddy',   role: 'Tech Startup Founder, Madhapur', text: 'Our office furniture from WoodCraft is both functional and beautiful. The team understood our brand aesthetic and delivered a workspace our employees love.'               },
 ];
 
-/* ---- Counter hook ---- */
+/* ─── Counter hook ─── */
 function useCounter(ref, target, suffix = '') {
   useEffect(() => {
     const el = ref.current;
@@ -47,12 +66,12 @@ function useCounter(ref, target, suffix = '') {
     const obs = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       obs.disconnect();
-      let start = 0;
+      let n = 0;
       const step = Math.ceil(target / 60);
-      const timer = setInterval(() => {
-        start = Math.min(start + step, target);
-        el.textContent = start + suffix;
-        if (start >= target) clearInterval(timer);
+      const t = setInterval(() => {
+        n = Math.min(n + step, target);
+        el.textContent = n + suffix;
+        if (n >= target) clearInterval(t);
       }, 20);
     }, { threshold: 0.7 });
     obs.observe(el);
@@ -60,53 +79,131 @@ function useCounter(ref, target, suffix = '') {
   }, [ref, target, suffix]);
 }
 
+/* ─── ProcessStep sub-component ─── */
+function ProcessStep({ item, index, isLast }) {
+  const ref    = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const isLeft = index % 2 === 0;
+
+  return (
+    <div className="process-step-wrapper" ref={ref}>
+      <motion.div
+        className={`process-step${isLeft ? ' step-left' : ' step-right'}`}
+        initial={{ opacity: 0, x: isLeft ? -60 : 60 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.7, ease, delay: 0.1 }}
+      >
+        <div className="ps-icon">{item.icon}</div>
+        <div className="ps-body">
+          <div className="ps-num">STEP {item.step}</div>
+          <h4>{item.title}</h4>
+          <p>{item.desc}</p>
+        </div>
+      </motion.div>
+      {!isLast && (
+        <motion.div
+          className="process-connector"
+          initial={{ scaleY: 0 }}
+          animate={inView ? { scaleY: 1 } : {}}
+          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.65 }}
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─── Main component ─── */
 export default function Home() {
   const c1 = useRef(null), c2 = useRef(null), c3 = useRef(null), c4 = useRef(null);
   useCounter(c1, 500, '+');
-  useCounter(c2, 15, '+');
-  useCounter(c3, 98, '%');
-  useCounter(c4, 30, '+');
+  useCounter(c2, 15,  '+');
+  useCounter(c3, 98,  '%');
+  useCounter(c4, 30,  '+');
+
+  /* Hero parallax */
+  const { scrollY } = useScroll();
+  const heroBgY      = useTransform(scrollY, [0, 700], [0, 200]);
+  const heroContentY = useTransform(scrollY, [0, 700], [0, 80]);
+
+  /* Floating furniture */
+  const floatRef = useRef(null);
+  const { scrollYProgress: floatProg } = useScroll({
+    target: floatRef,
+    offset: ['start end', 'end start'],
+  });
+  const furnitureX = useTransform(floatProg, [0, 1], ['-20%', '120%']);
+  const furnitureR = useTransform(floatProg, [0, 0.5, 1], [-6, 0, 6]);
+  const furnitureY = useTransform(floatProg, [0, 0.5, 1], [30, -20, 30]);
+
+  /* Horizontal scroll — measure track width dynamically */
+  const hRef      = useRef(null);
+  const hTrackRef = useRef(null);
+  const [scrollDist, setScrollDist] = useState(0);
+
+  useEffect(() => {
+    const update = () => {
+      if (hTrackRef.current) {
+        setScrollDist(hTrackRef.current.scrollWidth - window.innerWidth);
+      }
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  const { scrollYProgress: hProg } = useScroll({
+    target: hRef,
+    offset: ['start start', 'end end'],
+  });
+  const hX = useTransform(hProg, [0, 1], [0, -scrollDist]);
+
+  /* Testimonial auto-slider */
+  const [tIdx, setTIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTIdx(i => (i + 1) % testimonials.length), 4500);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <>
       {/* ── HERO ── */}
       <section className="hero">
-        <div className="hero-bg" />
+        <motion.div className="hero-bg" style={{ y: heroBgY }} />
         <div className="hero-overlay" />
         <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge">
+          <motion.div
+            className="hero-content"
+            style={{ y: heroContentY }}
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div className="hero-badge" variants={fadeUp} transition={{ duration: 0.6, ease }}>
               <span className="hero-badge-dot" />
               Hyderabad's #1 Carpentry Studio
-            </div>
-            <h1>Custom Furniture That <em>Defines</em> Your Space</h1>
-            <p className="hero-sub">
+            </motion.div>
+
+            <motion.h1 variants={fadeUp} transition={{ duration: 0.7, ease, delay: 0.1 }}>
+              Custom Furniture That <em>Defines</em> Your Space
+            </motion.h1>
+
+            <motion.p className="hero-sub" variants={fadeUp} transition={{ duration: 0.7, ease, delay: 0.2 }}>
               From modular kitchens to bespoke wardrobes — we craft premium wooden furniture
               tailored to your exact vision. Quality materials, master craftsmen, on-time delivery.
-            </p>
-            <div className="hero-actions">
+            </motion.p>
+
+            <motion.div className="hero-actions" variants={fadeUp} transition={{ duration: 0.7, ease, delay: 0.3 }}>
               <Link to="/contact" className="btn btn-primary btn-lg">Get Free Quote</Link>
               <Link to="/portfolio" className="btn btn-outline btn-lg">View Our Work</Link>
-            </div>
-            <div className="hero-stats">
-              <div>
-                <div className="hstat-num"><span ref={c1}>0</span></div>
-                <div className="hstat-lbl">Projects Delivered</div>
-              </div>
-              <div>
-                <div className="hstat-num"><span ref={c2}>0</span></div>
-                <div className="hstat-lbl">Years Experience</div>
-              </div>
-              <div>
-                <div className="hstat-num"><span ref={c3}>0</span></div>
-                <div className="hstat-lbl">Client Satisfaction</div>
-              </div>
-              <div>
-                <div className="hstat-num"><span ref={c4}>0</span></div>
-                <div className="hstat-lbl">Skilled Craftsmen</div>
-              </div>
-            </div>
-          </div>
+            </motion.div>
+
+            <motion.div className="hero-stats" variants={fadeUp} transition={{ duration: 0.7, ease, delay: 0.5 }}>
+              <div><div className="hstat-num"><span ref={c1}>0</span></div><div className="hstat-lbl">Projects Delivered</div></div>
+              <div><div className="hstat-num"><span ref={c2}>0</span></div><div className="hstat-lbl">Years Experience</div></div>
+              <div><div className="hstat-num"><span ref={c3}>0</span></div><div className="hstat-lbl">Client Satisfaction</div></div>
+              <div><div className="hstat-num"><span ref={c4}>0</span></div><div className="hstat-lbl">Skilled Craftsmen</div></div>
+            </motion.div>
+          </motion.div>
         </div>
         <div className="scroll-cue">
           <div className="scroll-mouse" />
@@ -115,44 +212,114 @@ export default function Home() {
       </section>
 
       {/* ── TRUST STRIP ── */}
-      <div className="trust-strip">
+      <motion.div
+        className="trust-strip"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease }}
+      >
         <div className="container">
           <div className="trust-items">
             {[
-              { icon: '✅', title: 'Licensed & Insured',      sub: 'Fully certified studio' },
-              { icon: '🕒', title: '15+ Years Experience',    sub: 'Trusted since 2009' },
-              { icon: '🏆', title: '500+ Happy Clients',      sub: 'Across Hyderabad' },
-              { icon: '🌳', title: 'Premium Materials Only',  sub: 'Grade-A wood & hardware' },
+              { icon: '✅', title: 'Licensed & Insured',     sub: 'Fully certified studio'  },
+              { icon: '🕒', title: '15+ Years Experience',   sub: 'Trusted since 2009'      },
+              { icon: '🏆', title: '500+ Happy Clients',     sub: 'Across Hyderabad'        },
+              { icon: '🌳', title: 'Premium Materials Only', sub: 'Grade-A wood & hardware' },
             ].map(t => (
               <div className="trust-item" key={t.title}>
                 <div className="trust-icon">{t.icon}</div>
-                <div>
-                  <strong>{t.title}</strong>
-                  <span>{t.sub}</span>
-                </div>
+                <div><strong>{t.title}</strong><span>{t.sub}</span></div>
               </div>
             ))}
           </div>
         </div>
+      </motion.div>
+
+      {/* ── FLOATING FURNITURE TRANSITION ── */}
+      <div ref={floatRef} className="float-section">
+        <div className="container float-inner">
+          <div className="float-text-wrap">
+            <motion.span
+              className="label-tag"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
+              Our Craft
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease, delay: 0.1 }}
+            >
+              Furniture That <em>Moves</em><br />With Your Life
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease, delay: 0.2 }}
+            >
+              Every piece we build is designed around how you live — how you cook, work, sleep,
+              and gather. Form and function, inseparable.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease, delay: 0.35 }}
+            >
+              <Link to="/services" className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
+                Explore Services
+              </Link>
+            </motion.div>
+          </div>
+          <motion.div
+            className="float-furniture"
+            style={{ x: furnitureX, rotate: furnitureR, y: furnitureY }}
+            aria-hidden="true"
+          >
+            🪑
+          </motion.div>
+        </div>
       </div>
 
-      {/* ── SERVICES PREVIEW ── */}
+      {/* ── SERVICES ── */}
       <section className="section">
         <div className="container">
-          <div className="section-head">
+          <motion.div
+            className="section-head"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
             <span className="label-tag">What We Do</span>
             <h2>Our Signature Services</h2>
-            <p>From concept to installation — every service is delivered with precision, premium materials, and a passion for lasting craftsmanship.</p>
+            <p>From concept to installation — every service delivered with precision, premium materials, and a passion for lasting craftsmanship.</p>
             <div className="underline" />
-          </div>
-          <div className="services-grid">
+          </motion.div>
+
+          <motion.div
+            className="services-grid"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+          >
             {services.map((s, i) => (
-              <div className="service-card" key={s.title} data-reveal data-delay={String(i + 1)}>
+              <motion.div
+                className="service-card"
+                key={s.title}
+                variants={fadeUp}
+                transition={{ duration: 0.6, ease, delay: i * 0.08 }}
+                whileHover={{ y: -10, transition: { duration: 0.25 } }}
+              >
                 <div className="sc-img">
-                  <div className="sc-ph" style={{ background: `linear-gradient(135deg, #F5F5DC, #E8DDD0)` }}>
-                    <span className="icon">{s.icon}</span>
-                    <span className="lbl">{s.label}</span>
-                  </div>
+                  <img src={s.img} alt={s.title} loading="lazy" />
                   {s.badge && <span className="sc-badge">{s.badge}</span>}
                 </div>
                 <div className="sc-body">
@@ -160,90 +327,240 @@ export default function Home() {
                   <p>{s.desc}</p>
                   <Link to="/services" className="sc-link">Learn More</Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          </motion.div>
+
+          <motion.div
+            style={{ textAlign: 'center', marginTop: '2.5rem' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
             <Link to="/services" className="btn btn-ghost">View All Services</Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── CRAFT PROCESS ── */}
+      <section className="section section-alt process-section">
+        <div className="container">
+          <motion.div
+            className="section-head"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <span className="label-tag">How We Work</span>
+            <h2>From Vision to Reality</h2>
+            <p>A seamless four-step process built around your timeline, your taste, and your peace of mind.</p>
+            <div className="underline" />
+          </motion.div>
+          <div className="process-track">
+            {craftProcess.map((item, i) => (
+              <ProcessStep
+                key={item.step}
+                item={item}
+                index={i}
+                isLast={i === craftProcess.length - 1}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* ── WHY CHOOSE US ── */}
-      <section className="section section-alt">
+      <section className="section">
         <div className="container">
-          <div className="section-head">
+          <motion.div
+            className="section-head"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
             <span className="label-tag">Why WoodCraft</span>
             <h2>Built Different. Built Better.</h2>
             <p>Four pillars that make every WoodCraft project an investment worth making.</p>
             <div className="underline" />
-          </div>
-          <div className="why-grid">
+          </motion.div>
+
+          <motion.div
+            className="why-grid"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+          >
             {whyItems.map((w, i) => (
-              <div className="why-card" key={w.title} data-reveal data-delay={String(i + 1)}>
+              <motion.div
+                className="why-card"
+                key={w.title}
+                variants={scaleIn}
+                transition={{ duration: 0.6, ease, delay: i * 0.1 }}
+                whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
+              >
                 <div className="why-icon">{w.icon}</div>
                 <h4>{w.title}</h4>
                 <p>{w.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── FEATURED PROJECTS ── */}
-      <section className="section">
+      <section className="section section-alt">
         <div className="container">
-          <div className="section-head">
+          <motion.div
+            className="section-head"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
             <span className="label-tag">Our Work</span>
             <h2>Featured Projects</h2>
             <p>A glimpse into spaces we've transformed — each project a story of precision and passion.</p>
             <div className="underline" />
-          </div>
-          <div className="projects-grid">
+          </motion.div>
+
+          <motion.div
+            className="projects-grid"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+          >
             {projects.map((p, i) => (
-              <div className="proj-item" key={p.title} data-reveal data-delay={String(i % 3 + 1)}>
-                <div className="proj-ph" style={{ background: `linear-gradient(135deg, #F5F5DC ${i * 10}%, #D4C5B0)` }}>
-                  <span className="icon">{p.icon}</span>
-                  <small>{p.label}</small>
-                </div>
+              <motion.div
+                className="proj-item"
+                key={p.title}
+                variants={fadeUp}
+                transition={{ duration: 0.6, ease, delay: (i % 3) * 0.1 }}
+                whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
+              >
+                <img src={p.img} alt={p.title} className="proj-img" loading="lazy" />
                 <div className="proj-overlay">
                   <h4>{p.title}</h4>
                   <span className="cat">{p.cat}</span>
                 </div>
                 <Link to="/portfolio" className="proj-btn">View Details →</Link>
-              </div>
+              </motion.div>
             ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          </motion.div>
+
+          <motion.div
+            style={{ textAlign: 'center', marginTop: '2.5rem' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
             <Link to="/portfolio" className="btn btn-dark">Explore Full Portfolio</Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section className="section section-alt">
+      {/* ── HORIZONTAL SCROLL SHOWCASE ── */}
+      <div ref={hRef} className="h-scroll-outer">
+        <div className="h-scroll-sticky">
+          <div className="h-scroll-header">
+            <motion.span
+              className="label-tag h-scroll-tag"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              Our Specialities
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, ease }}
+            >
+              Scroll to Explore
+            </motion.h2>
+          </div>
+
+          <div className="h-scroll-viewport">
+            <motion.div className="h-scroll-track" ref={hTrackRef} style={{ x: hX }}>
+              {hScrollItems.map((item, i) => (
+                <div
+                  key={i}
+                  className="h-scroll-item"
+                  style={{ background: `linear-gradient(145deg, ${item.bg}, #C8BDA8)` }}
+                >
+                  <div className="hsi-num">0{i + 1}</div>
+                  <div className="hsi-icon">{item.icon}</div>
+                  <h3>{item.title}</h3>
+                  <p>{item.sub}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          <div className="h-scroll-progress-wrap">
+            <motion.div
+              className="h-scroll-progress-bar"
+              style={{ scaleX: hProg, transformOrigin: 'left' }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ── TESTIMONIALS SLIDER ── */}
+      <section className="section">
         <div className="container">
-          <div className="section-head">
+          <motion.div
+            className="section-head"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
             <span className="label-tag">Client Stories</span>
             <h2>What Our Clients Say</h2>
             <p>Real feedback from homeowners, designers, and businesses who trusted WoodCraft.</p>
             <div className="underline" />
-          </div>
-          <div className="testimonials-grid">
-            {testimonials.map((t, i) => (
-              <div className="tcard" key={t.name} data-reveal data-delay={String(i + 1)}>
+          </motion.div>
+
+          <div className="tslider">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={tIdx}
+                className="tslide-card"
+                initial={{ opacity: 0, x: 60 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -60 }}
+                transition={{ duration: 0.45, ease }}
+              >
                 <span className="tcard-quote">"</span>
                 <div className="tcard-stars">★★★★★</div>
-                <p className="tcard-text">{t.text}</p>
+                <p className="tcard-text">{testimonials[tIdx].text}</p>
                 <div className="tcard-author">
-                  <div className="tcard-avatar">{t.initial}</div>
+                  <div className="tcard-avatar">{testimonials[tIdx].initial}</div>
                   <div>
-                    <div className="tcard-name">{t.name}</div>
-                    <div className="tcard-role">{t.role}</div>
+                    <div className="tcard-name">{testimonials[tIdx].name}</div>
+                    <div className="tcard-role">{testimonials[tIdx].role}</div>
                   </div>
                 </div>
-              </div>
-            ))}
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="tslide-dots">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  className={`tslide-dot${i === tIdx ? ' active' : ''}`}
+                  onClick={() => setTIdx(i)}
+                  aria-label={`Testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -251,13 +568,42 @@ export default function Home() {
       {/* ── CTA BANNER ── */}
       <section className="cta-banner">
         <div className="container">
-          <span className="label-tag" style={{ color: 'rgba(255,140,0,0.9)' }}>Ready to Start?</span>
-          <h2>Transform Your Space Today</h2>
-          <p>Get a free consultation and detailed quote within 24 hours. No commitment required — just great ideas and honest pricing.</p>
-          <div className="cta-actions">
+          <motion.span
+            className="label-tag"
+            style={{ color: 'rgba(255,140,0,0.9)' }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Ready to Start?
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease }}
+          >
+            Transform Your Space Today
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            style={{ maxWidth: '540px', margin: '0 auto 2rem' }}
+          >
+            Get a free consultation and detailed quote within 24 hours. No commitment required — just great ideas and honest pricing.
+          </motion.p>
+          <motion.div
+            className="cta-actions"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
             <Link to="/contact" className="btn btn-primary btn-lg">Get Free Quote</Link>
             <a href="tel:+919876543210" className="btn btn-outline btn-lg">📞 Call Now</a>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

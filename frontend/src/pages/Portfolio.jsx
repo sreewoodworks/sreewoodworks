@@ -1,20 +1,51 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const projects = [
-  { id: 1, icon: '🍳', title: 'Jubilee Hills Kitchen',        category: 'kitchen', location: 'Jubilee Hills, Hyderabad', materials: 'Marine Ply + Acrylic Finish', duration: '18 Days', desc: 'A sleek U-shaped modular kitchen with handleless cabinets, quartz countertop, and integrated chimney. Storage optimised for a family of five.', bg: '#F5F5DC' },
-  { id: 2, icon: '🚪', title: 'Gachibowli Master Wardrobe',   category: 'bedroom', location: 'Gachibowli, Hyderabad',  materials: 'BWR Ply + Mirror Panels',    duration: '12 Days', desc: 'Floor-to-ceiling sliding wardrobe with internal LED lighting, velvet drawer inserts, and a full-length mirror panel.', bg: '#EDE8D5' },
-  { id: 3, icon: '💼', title: 'Madhapur Tech Office',         category: 'office',  location: 'Madhapur, Hyderabad',   materials: 'Teak Veneer + Steel',        duration: '25 Days', desc: 'Open-plan office furniture for 40 staff — including cable-managed workstations, a 16-seat conference table, and a glass-fronted reception counter.', bg: '#E8DDD0' },
-  { id: 4, icon: '📺', title: 'Banjara Hills TV Wall',        category: 'custom',  location: 'Banjara Hills, Hyderabad', materials: 'WPC Board + LED Coves',   duration: '8 Days',  desc: 'A full 14-foot feature wall with backlit floating shelves, hidden cable channels, and a stone-textured accent panel.', bg: '#DDD0C0' },
-  { id: 5, icon: '🍳', title: 'Kondapur Island Kitchen',      category: 'kitchen', location: 'Kondapur, Hyderabad',   materials: 'PU Finish + Granite',        duration: '22 Days', desc: 'Premium island kitchen with a breakfast counter, wine rack, and Pooja unit integrated seamlessly into the design.', bg: '#F5F0E0' },
-  { id: 6, icon: '🚪', title: 'HITEC City Walk-In Closet',    category: 'bedroom', location: 'HITEC City, Hyderabad', materials: 'Pre-lam Ply + Aluminium',    duration: '15 Days', desc: 'A luxury walk-in wardrobe with island dresser, jewellery drawers, shoe racks, and a full-height mirror wall.', bg: '#E8E0D5' },
-  { id: 7, icon: '📚', title: 'Ameerpet Home Library',        category: 'custom',  location: 'Ameerpet, Hyderabad',  materials: 'Solid Teak + Walnut',        duration: '20 Days', desc: 'Floor-to-ceiling bookshelf wall with rolling ladder, integrated reading nook, and vintage-inspired teak finish.', bg: '#DDD5C5' },
-  { id: 8, icon: '💼', title: 'Financial District Boardroom', category: 'office',  location: 'Financial District, HYD', materials: 'Oak Veneer + Glass',       duration: '30 Days', desc: '24-seater boardroom with a solid oak conference table, credenza, and custom acoustic panelled walls.', bg: '#E0D8CC' },
-  { id: 9, icon: '🛏️', title: 'Secunderabad Bedroom Suite',  category: 'bedroom', location: 'Secunderabad, Hyderabad', materials: 'Teak + Fabric Headboard',  duration: '14 Days', desc: 'Complete bedroom suite — bed frame, side tables, dresser unit, and four-door wardrobe in matching warm teak finish.', bg: '#EDE5D8' },
-  { id: 10, icon: '🍳', title: 'Kukatpally L-Kitchen',        category: 'kitchen', location: 'Kukatpally, Hyderabad', materials: 'HDF + Laminate Finish',      duration: '16 Days', desc: 'Budget-friendly L-shaped kitchen with maximum storage, durable laminate shutters, and stainless steel sink cabinet.', bg: '#F0ECD8' },
-  { id: 11, icon: '🪵', title: 'Miyapur Pooja Mandir',        category: 'custom',  location: 'Miyapur, Hyderabad',   materials: 'Solid Teak + Gold Polish',   duration: '10 Days', desc: 'Handcrafted teak Pooja mandir with ornate carvings, backlit niches, and a foldable door design.', bg: '#E8E0CF' },
-  { id: 12, icon: '💼', title: 'Khairatabad Co-Working Space',category: 'office',  location: 'Khairatabad, Hyderabad', materials: 'Powder-Coat Steel + MDF',  duration: '35 Days', desc: '80-seat co-working fitout with hot desks, phone booths, lounge seating, and a fully equipped pantry unit.', bg: '#DDDAC8' },
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const projectImages = [
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.26.jpeg', category: 'kitchen', title: 'Modern Modular Kitchen', location: 'Jubilee Hills' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.27.jpeg', category: 'bedroom', title: 'Master Bedroom Suite', location: 'Gachibowli' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.28.jpeg', category: 'office', title: 'Executive Office Setup', location: 'Madhapur' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.29.jpeg', category: 'custom', title: 'Premium TV Unit', location: 'Banjara Hills' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.30.jpeg', category: 'kitchen', title: 'Island Kitchen Design', location: 'Kukatpally' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.31.jpeg', category: 'bedroom', title: 'Luxury Wardrobe', location: 'HITEC City' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.32.jpeg', category: 'custom', title: 'Teak Wood Pooja Mandir', location: 'Miyapur' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.33.jpeg', category: 'kitchen', title: 'Compact U-Kitchen', location: 'Ameerpet' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.34.jpeg', category: 'bedroom', title: 'Kids Bedroom', location: 'Kondapur' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.35.jpeg', category: 'office', title: 'Tech Startup Hub', location: 'Financial District' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.36.jpeg', category: 'custom', title: 'Handcrafted Dining Table', location: 'Secunderabad' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.37.jpeg', category: 'kitchen', title: 'Rustic Kitchen Style', location: 'Manikonda' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.38.jpeg', category: 'bedroom', title: 'Modern Guest Room', location: 'Uppal' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.39.jpeg', category: 'office', title: 'Conference Room', location: 'Begumpet' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.40.jpeg', category: 'custom', title: 'Glass Partition Wall', location: 'Somajiguda' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.41.jpeg', category: 'kitchen', title: 'Classic White Kitchen', location: 'Nallagandla' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.42.jpeg', category: 'bedroom', title: 'Walk-in Closet', location: 'Tellapur' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.43.jpeg', category: 'custom', title: 'Custom Bookshelf', location: 'Kokapet' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.44.jpeg', category: 'kitchen', title: 'Smart Kitchen Solution', location: 'Lingampally' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.45.jpeg', category: 'bedroom', title: 'Contemporary Bed Frame', location: 'Hafeezpet' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.46.jpeg', category: 'office', title: 'Collaborative Workspace', location: 'Madhapur' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.47.jpeg', category: 'custom', title: 'Designer Shoe Rack', location: 'Kukatpally' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.48.jpeg', category: 'kitchen', title: 'High-Gloss Kitchen', location: 'Gachibowli' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.49.jpeg', category: 'bedroom', title: 'Minimalist Wardrobe', location: 'Jubilee Hills' },
+  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.50.jpeg', category: 'office', title: 'Home Office Nook', location: 'Banjara Hills' },
 ];
+
+const projects = projectImages.map((p, index) => ({
+  id: index + 1,
+  title: p.title,
+  category: p.category,
+  image: p.src,
+  location: p.location + ', Hyderabad',
+  materials: 'Premium Ply + Custom Finish',
+  duration: '15-20 Days',
+  desc: `A premium ${p.category} project delivered with attention to detail and high-quality materials. Custom designed to meet the client's specific needs.`,
+  bg: '#F5F5DC'
+}));
 
 const FILTERS = ['all', 'kitchen', 'bedroom', 'office', 'custom'];
 
@@ -28,14 +59,35 @@ export default function Portfolio() {
     <>
       {/* Page Hero */}
       <div className="page-hero">
-        <div className="container">
-          <nav className="breadcrumb">
-            <Link to="/">Home</Link>
-            <span className="sep">›</span>
-            <span>Portfolio</span>
-          </nav>
-          <h1>Our Work</h1>
-          <p>500+ projects delivered across Hyderabad. Browse by category and see the craftsmanship up close.</p>
+        <motion.div 
+          className="page-hero-bg"
+          style={{ backgroundImage: 'url(/ai-images/custom.png)' }}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <div className="page-hero-overlay" />
+        <div className="container page-hero-content">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+            }}
+          >
+            <motion.nav className="breadcrumb" variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+              <Link to="/">Home</Link>
+              <span className="sep">›</span>
+              <span>Portfolio</span>
+            </motion.nav>
+            <motion.h1 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+              Our Portfolio
+            </motion.h1>
+            <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+              Explore our collection of premium woodwork projects across Hyderabad. From modern kitchens to bespoke furniture.
+            </motion.p>
+          </motion.div>
         </div>
       </div>
 
@@ -56,31 +108,35 @@ export default function Portfolio() {
           </div>
 
           {/* Grid */}
-          <div className="gallery-grid">
-            {visible.map(p => (
-              <div
-                key={p.id}
-                className="gallery-item"
-                data-reveal
-                onClick={() => setModal(p)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={e => e.key === 'Enter' && setModal(p)}
-              >
-                <div
-                  className="gi-ph"
-                  style={{ background: `linear-gradient(135deg, ${p.bg}, #C8BDA8)` }}
+          <motion.div 
+            className="gallery-grid masonry-grid"
+            layout
+          >
+            <AnimatePresence mode='popLayout'>
+              {visible.map((p, idx) => (
+                <motion.div
+                  key={p.id}
+                  layout
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  variants={fadeUp}
+                  transition={{ duration: 0.5, delay: (idx % 6) * 0.05 }}
+                  className={`gallery-item ${p.id % 4 === 0 ? 'tall' : p.id % 7 === 0 ? 'wide' : ''}`}
+                  onClick={() => setModal(p)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => e.key === 'Enter' && setModal(p)}
                 >
-                  <span className="icon">{p.icon}</span>
-                  <small>{p.title}</small>
-                </div>
-                <div className="gi-overlay">
-                  <h4>{p.title}</h4>
-                  <span className="cat">{p.category}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+                  <img src={p.image} alt={p.title} loading="lazy" />
+                  <div className="gi-overlay">
+                    <h4>{p.title}</h4>
+                    <span className="cat">{p.category}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
@@ -88,8 +144,8 @@ export default function Portfolio() {
       {modal && (
         <div className={`modal-bg open`} onClick={e => e.target === e.currentTarget && setModal(null)}>
           <div className="modal-box">
-            <div className="modal-img" style={{ background: `linear-gradient(135deg, ${modal.bg}, #C8BDA8)` }}>
-              {modal.icon}
+            <div className="modal-img">
+              <img src={modal.image} alt={modal.title} />
               <button className="modal-close" onClick={() => setModal(null)} aria-label="Close">✕</button>
             </div>
             <div className="modal-body">

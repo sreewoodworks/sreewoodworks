@@ -24,9 +24,9 @@ const values = [
 ];
 
 const team = [
-  { initial: 'R', name: 'Ravi Kumar',   role: 'Master Carpenter & Founder',  exp: '22 years crafting premium furniture across South India.' },
-  { initial: 'S', name: 'Sunita Reddy', role: 'Lead Interior Designer',       exp: 'B.Arch + 12 years designing residential & commercial spaces.' },
-  { initial: 'A', name: 'Ajay Patil',   role: 'Workshop Head',                exp: 'Oversees 35 craftsmen with a focus on quality control and on-time delivery.' },
+  { initial: 'R', name: 'Ravi Kumar',   role: 'Master Carpenter & Founder',  exp: '25+ years crafting premium furniture across South India.' },
+  { initial: 'S', name: 'Sunita Reddy', role: 'Lead Interior Designer',       exp: 'B.Arch + 15 years designing residential & commercial spaces.' },
+  { initial: 'A', name: 'Ajay Patil',   role: 'Workshop Head',                exp: 'Oversees 50+ craftsmen with a focus on quality control and on-time delivery.' },
 ];
 
 const badges = [
@@ -76,27 +76,26 @@ export default function About() {
       <div className="svc-hero">
         <motion.div
           className="svc-hero-bg"
-          initial={{ scale: 1.08 }}
+          style={{ backgroundImage: 'url(/ai-images/wardrobe.png)' }}
+          initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         />
         <div className="svc-hero-overlay" />
         <div className="container svc-hero-content">
-          <motion.div variants={stagger} initial="hidden" animate="visible"
-            style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
-            <motion.nav className="breadcrumb" variants={fadeUp} transition={{ duration: 0.6, ease }}>
+          <motion.div variants={stagger} initial="hidden" animate="visible">
+            <motion.nav className="breadcrumb" variants={fadeUp}>
               <Link to="/" style={{ color: 'rgba(255,255,255,0.7)' }}>Home</Link>
-              <span className="sep" style={{ color: 'rgba(255,255,255,0.4)' }}>›</span>
-              <span style={{ color: '#fff' }}>About</span>
+              <span className="sep">›</span>
+              <span>About</span>
             </motion.nav>
-            <motion.span className="label-tag" variants={fadeUp} transition={{ duration: 0.6, ease }}
-              style={{ color: 'var(--accent)' }}>Our Story</motion.span>
-            <motion.h1 variants={fadeUp} transition={{ duration: 0.7, ease }}
-              style={{ color: '#fff', fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', margin: 0 }}>
+            <motion.span className="label-tag" variants={fadeUp} style={{ color: 'var(--accent)', marginBottom: '1rem', display: 'inline-block' }}>
+              Our Story
+            </motion.span>
+            <motion.h1 variants={fadeUp}>
               About WoodCraft
             </motion.h1>
-            <motion.p variants={fadeUp} transition={{ duration: 0.7, ease }}
-              style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '520px', fontSize: '1.1rem', margin: 0 }}>
+            <motion.p variants={fadeUp}>
               Fifteen years of turning raw wood into spaces people love to live and work in.
             </motion.p>
           </motion.div>
@@ -130,14 +129,14 @@ export default function About() {
               transition={{ duration: 0.8, ease }}
             >
               <span className="label-tag">Our Story</span>
-              <h2>Crafting Spaces Since 2009</h2>
+              <h2>Crafting Spaces Since 1999</h2>
               <p>
-                WoodCraft was founded in 2009 by master carpenter Ravi Kumar in a modest workshop in Hyderabad's
+                WoodCraft was founded in 1999 by master carpenter Ravi Kumar in a modest workshop in Hyderabad's
                 old city. Starting with a single lathe and a dream to make quality furniture accessible, we've grown
-                into a 35-person studio with a fully equipped 8,000 sq.ft production facility in Nacharam.
+                into a 50-person studio with a fully equipped 8,000 sq.ft production facility in Nacharam.
               </p>
               <p>
-                Over 500 projects later — spanning modular kitchens, wardrobes, corporate offices, and bespoke
+                Over 1200 projects later — spanning modular kitchens, wardrobes, corporate offices, and bespoke
                 handcrafted pieces — our mission remains the same: deliver furniture that lasts generations,
                 at a price that makes sense.
               </p>
@@ -204,9 +203,9 @@ export default function About() {
             <div className="underline" />
           </motion.div>
           <div className="stats-row">
-            <CountBox target={500} suffix="+" label="Projects Completed" />
-            <CountBox target={15}  suffix="+" label="Years in Business"  />
-            <CountBox target={35}  suffix="+" label="Skilled Craftsmen"  />
+            <CountBox target={1200} suffix="+" label="Projects Completed" />
+            <CountBox target={25}   suffix="+" label="Years in Business"  />
+            <CountBox target={50}   suffix="+" label="Skilled Craftsmen"  />
           </div>
         </div>
       </section>

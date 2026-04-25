@@ -61,27 +61,26 @@ export default function Contact() {
       <div className="svc-hero">
         <motion.div
           className="svc-hero-bg"
-          initial={{ scale: 1.08 }}
+          style={{ backgroundImage: 'url(/ai-images/office.png)' }}
+          initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         />
         <div className="svc-hero-overlay" />
         <div className="container svc-hero-content">
-          <motion.div variants={stagger} initial="hidden" animate="visible"
-            style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
-            <motion.nav className="breadcrumb" variants={fadeUp} transition={{ duration: 0.6, ease }}>
+          <motion.div variants={stagger} initial="hidden" animate="visible">
+            <motion.nav className="breadcrumb" variants={fadeUp}>
               <Link to="/" style={{ color: 'rgba(255,255,255,0.7)' }}>Home</Link>
-              <span className="sep" style={{ color: 'rgba(255,255,255,0.4)' }}>›</span>
-              <span style={{ color: '#fff' }}>Contact</span>
+              <span className="sep">›</span>
+              <span>Contact</span>
             </motion.nav>
-            <motion.span className="label-tag" variants={fadeUp} transition={{ duration: 0.6, ease }}
-              style={{ color: 'var(--accent)' }}>Reach Out</motion.span>
-            <motion.h1 variants={fadeUp} transition={{ duration: 0.7, ease }}
-              style={{ color: '#fff', fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', margin: 0 }}>
+            <motion.span className="label-tag" variants={fadeUp} style={{ color: 'var(--accent)', marginBottom: '1rem', display: 'inline-block' }}>
+              Reach Out
+            </motion.span>
+            <motion.h1 variants={fadeUp}>
               Get in Touch
             </motion.h1>
-            <motion.p variants={fadeUp} transition={{ duration: 0.7, ease }}
-              style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '520px', fontSize: '1.1rem', margin: 0 }}>
+            <motion.p variants={fadeUp}>
               Ready to start your project? Reach out — we'll respond within a few hours.
             </motion.p>
           </motion.div>

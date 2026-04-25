@@ -14,7 +14,7 @@ const services = [
     icon: '🍳',
     title: 'Modular Kitchen',
     bg: '#F5F0E0',
-    img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80',
+    img: '/ai-images/kitchen.png',
     badge: 'Most Popular',
     desc: 'A well-designed kitchen is the heart of every home. Our modular kitchens combine intelligent storage, durable materials, and stunning aesthetics to create a cooking space you\'ll love every day.',
     features: [
@@ -32,7 +32,7 @@ const services = [
     icon: '🚪',
     title: 'Wardrobes',
     bg: '#EDE8D5',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80',
+    img: '/ai-images/wardrobe.png',
     badge: null,
     desc: 'From walk-in closets to sliding door wardrobes — every wardrobe we build is a masterclass in organisation. Custom compartments, pull-out trays, and premium hardware for a seamless experience.',
     features: [
@@ -50,7 +50,7 @@ const services = [
     icon: '📺',
     title: 'TV Units',
     bg: '#E8DDD0',
-    img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
+    img: '/ai-images/kitchen.png', // Reusing kitchen or generating more if needed, but for now I'll use what's available
     badge: 'Trending',
     desc: 'Your living room deserves a focal point that\'s both functional and beautiful. Our TV units are crafted to house your entertainment setup while doubling as statement furniture.',
     features: [
@@ -68,7 +68,7 @@ const services = [
     icon: '🪟',
     title: 'Doors & Windows',
     bg: '#DDD0C0',
-    img: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=800&q=80',
+    img: '/ai-images/custom.png',
     badge: null,
     desc: 'First impressions start at the door. We craft solid wood and engineered wood doors and windows that combine security, insulation, and beauty — built to last decades.',
     features: [
@@ -86,7 +86,7 @@ const services = [
     icon: '💼',
     title: 'Office Furniture',
     bg: '#D4C5B0',
-    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+    img: '/ai-images/office.png',
     badge: null,
     desc: 'A productive workspace starts with the right furniture. We design and build office interiors that reflect your brand — from reception desks to collaborative workstations.',
     features: [
@@ -104,7 +104,7 @@ const services = [
     icon: '🪵',
     title: 'Custom Carpentry',
     bg: '#C8BDA8',
-    img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80',
+    img: '/ai-images/custom.png',
     badge: 'New',
     desc: 'Have a vision that doesn\'t fit a standard category? Our custom carpentry service brings any idea to life — from heirloom furniture to architectural millwork.',
     features: [
@@ -237,9 +237,10 @@ export default function Services() {
       <div className="svc-hero">
         <motion.div
           className="svc-hero-bg"
-          initial={{ scale: 1.08 }}
+          style={{ backgroundImage: 'url(/ai-images/kitchen.png)' }}
+          initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         />
         <div className="svc-hero-overlay" />
         <div className="container svc-hero-content">
@@ -247,31 +248,23 @@ export default function Services() {
             variants={stagger}
             initial="hidden"
             animate="visible"
-            style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}
           >
-            <motion.nav className="breadcrumb" variants={fadeUp} transition={{ duration: 0.6, ease }}>
+            <motion.nav className="breadcrumb" variants={fadeUp}>
               <Link to="/" style={{ color: 'rgba(255,255,255,0.7)' }}>Home</Link>
-              <span className="sep" style={{ color: 'rgba(255,255,255,0.4)' }}>›</span>
-              <span style={{ color: '#fff' }}>Services</span>
+              <span className="sep">›</span>
+              <span>Services</span>
             </motion.nav>
-            <motion.span className="label-tag" variants={fadeUp} transition={{ duration: 0.6, ease }}
-              style={{ color: 'var(--accent)' }}>
-              What We Do
+            <motion.span className="label-tag" variants={fadeUp} style={{ color: 'var(--accent)', marginBottom: '1rem', display: 'inline-block' }}>
+              Expert Solutions
             </motion.span>
-            <motion.h1 variants={fadeUp} transition={{ duration: 0.7, ease }}
-              style={{ color: '#fff', fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', margin: 0 }}>
+            <motion.h1 variants={fadeUp}>
               Our Craft. Your Space.
             </motion.h1>
-            <motion.p variants={fadeUp} transition={{ duration: 0.7, ease }}
-              style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '520px', fontSize: '1.1rem', margin: 0 }}>
+            <motion.p variants={fadeUp}>
               Custom carpentry &amp; furnishing solutions built to last — designed for the way you live.
             </motion.p>
-            <motion.div variants={fadeUp} transition={{ duration: 0.7, ease }}
-              style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
-              <Link to="/contact" className="btn btn-primary btn-lg">Get a Free Quote</Link>
-              <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-lg">
-                💬 WhatsApp Us
-              </a>
+            <motion.div variants={fadeUp} style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+              <Link to="/contact" className="btn btn-primary btn-lg">Get a Quote</Link>
             </motion.div>
           </motion.div>
         </div>

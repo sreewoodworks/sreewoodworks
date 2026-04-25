@@ -16,10 +16,10 @@ const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } }
 
 /* ─── Data ─── */
 const services = [
-  { icon: '🍳', label: 'Kitchen',  title: 'Modular Kitchen',  desc: 'Smart, space-saving kitchen designs with premium hardware and laminates.', badge: 'Popular',  img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80' },
-  { icon: '🚪', label: 'Wardrobe', title: 'Wardrobes',        desc: 'Floor-to-ceiling wardrobes with custom compartments for every lifestyle.',  badge: 'Trending', img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80' },
-  { icon: '💼', label: 'Office',   title: 'Office Furniture', desc: 'Ergonomic, professional workspaces built for productivity and style.',       badge: null,       img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80' },
-  { icon: '🪑', label: 'Custom',   title: 'Custom Carpentry', desc: 'One-of-a-kind pieces crafted exactly to your vision and specifications.',   badge: 'New',      img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80' },
+  { icon: '🍳', label: 'Kitchen',  title: 'Modular Kitchen',  desc: 'Smart, space-saving kitchen designs with premium hardware and laminates.', badge: 'Popular',  img: '/ai-images/kitchen.png' },
+  { icon: '🚪', label: 'Wardrobe', title: 'Wardrobes',        desc: 'Floor-to-ceiling wardrobes with custom compartments for every lifestyle.',  badge: 'Trending', img: '/ai-images/wardrobe.png' },
+  { icon: '💼', label: 'Office',   title: 'Office Furniture', desc: 'Ergonomic, professional workspaces built for productivity and style.',       badge: null,       img: '/ai-images/office.png' },
+  { icon: '🪑', label: 'Custom',   title: 'Custom Carpentry', desc: 'One-of-a-kind pieces crafted exactly to your vision and specifications.',   badge: 'New',      img: '/ai-images/custom.png' },
 ];
 
 const craftProcess = [
@@ -30,11 +30,11 @@ const craftProcess = [
 ];
 
 const hScrollItems = [
-  { icon: '🍳', title: 'Modular Kitchens',  sub: 'Where cooking becomes a pleasure.',    bg: '#F5F0E0' },
-  { icon: '🚪', title: 'Wardrobes',         sub: 'Every compartment, perfectly placed.',  bg: '#EDE8D5' },
-  { icon: '💼', title: 'Office Furniture',  sub: 'Spaces that inspire great work.',       bg: '#E8DDD0' },
-  { icon: '🪵', title: 'Custom Carpentry',  sub: 'One-of-a-kind — just like you.',        bg: '#DDD0C0' },
-  { icon: '📺', title: 'TV & Living Units', sub: 'The focal point of every living room.', bg: '#D4C5B0' },
+  { icon: '🍳', title: 'Modular Kitchens',  sub: 'Where cooking becomes a pleasure.',    bg: '#F5F0E0', img: '/scroll-image/kitchen.png' },
+  { icon: '🚪', title: 'Wardrobes',         sub: 'Every compartment, perfectly placed.',  bg: '#EDE8D5', img: '/scroll-image/wardrobe.png' },
+  { icon: '💼', title: 'Office Furniture',  sub: 'Spaces that inspire great work.',       bg: '#E8DDD0', img: '/scroll-image/office.png' },
+  { icon: '🪵', title: 'Custom Carpentry',  sub: 'One-of-a-kind — just like you.',        bg: '#DDD0C0', img: '/scroll-image/custom.png' },
+  { icon: '📺', title: 'TV & Living Units', sub: 'The focal point of every living room.', bg: '#D4C5B0', img: '/scroll-image/tv-and-livingunit.png' },
 ];
 
 const whyItems = [
@@ -45,11 +45,11 @@ const whyItems = [
 ];
 
 const projects = [
-  { icon: '🍳', label: 'Kitchen', title: 'Jubilee Hills Kitchen Makeover',  cat: 'Kitchen', img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80' },
-  { icon: '🚪', label: 'Bedroom', title: 'Gachibowli Master Bedroom Suite', cat: 'Bedroom', img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80' },
-  { icon: '💼', label: 'Office',  title: 'Madhapur Corporate Workspace',    cat: 'Office',  img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80' },
-  { icon: '🏠', label: 'Living',  title: 'Banjara Hills Living Room Unit',  cat: 'Custom',  img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80' },
-  { icon: '📚', label: 'Library', title: 'Hitech City Home Library',        cat: 'Custom',  img: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=600&q=80' },
+  { icon: '🍳', label: 'Kitchen', title: 'Jubilee Hills Kitchen Makeover',  cat: 'Kitchen', img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.30.jpeg' },
+  { icon: '🚪', label: 'Bedroom', title: 'Gachibowli Master Bedroom Suite', cat: 'Bedroom', img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.31.jpeg' },
+  { icon: '💼', label: 'Office',  title: 'Madhapur Corporate Workspace',    cat: 'Office',  img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.35.jpeg' },
+  { icon: '🏠', label: 'Living',  title: 'Banjara Hills Living Room Unit',  cat: 'Custom',  img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.29.jpeg' },
+  { icon: '📚', label: 'Library', title: 'Hitech City Home Library',        cat: 'Custom',  img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.43.jpeg' },
 ];
 
 const testimonials = [
@@ -115,10 +115,10 @@ function ProcessStep({ item, index, isLast }) {
 /* ─── Main component ─── */
 export default function Home() {
   const c1 = useRef(null), c2 = useRef(null), c3 = useRef(null), c4 = useRef(null);
-  useCounter(c1, 500, '+');
-  useCounter(c2, 15,  '+');
-  useCounter(c3, 98,  '%');
-  useCounter(c4, 30,  '+');
+  useCounter(c1, 1200, '+');
+  useCounter(c2, 25,  '+');
+  useCounter(c3, 100, '%');
+  useCounter(c4, 50,  '+');
 
   /* Hero parallax */
   const { scrollY } = useScroll();
@@ -178,10 +178,7 @@ export default function Home() {
             initial="hidden"
             animate="visible"
           >
-            <motion.div className="hero-badge" variants={fadeUp} transition={{ duration: 0.6, ease }}>
-              <span className="hero-badge-dot" />
-              Hyderabad's #1 Carpentry Studio
-            </motion.div>
+
 
             <motion.h1 variants={fadeUp} transition={{ duration: 0.7, ease, delay: 0.1 }}>
               Custom Furniture That <em>Defines</em> Your Space
@@ -223,8 +220,8 @@ export default function Home() {
           <div className="trust-items">
             {[
               { icon: '✅', title: 'Licensed & Insured',     sub: 'Fully certified studio'  },
-              { icon: '🕒', title: '15+ Years Experience',   sub: 'Trusted since 2009'      },
-              { icon: '🏆', title: '500+ Happy Clients',     sub: 'Across Hyderabad'        },
+              { icon: '🕒', title: '25+ Years Experience',   sub: 'Trusted since 1999'      },
+              { icon: '🏆', title: '1200+ Happy Clients',     sub: 'Across Hyderabad'        },
               { icon: '🌳', title: 'Premium Materials Only', sub: 'Grade-A wood & hardware' },
             ].map(t => (
               <div className="trust-item" key={t.title}>
@@ -492,12 +489,15 @@ export default function Home() {
                 <div
                   key={i}
                   className="h-scroll-item"
-                  style={{ background: `linear-gradient(145deg, ${item.bg}, #C8BDA8)` }}
                 >
+                  <img src={item.img} alt={item.title} className="hsi-bg" />
+                  <div className="hsi-overlay" style={{ background: `linear-gradient(to top, #fff 0%, rgba(255,255,255,0.7) 60%, transparent 100%)` }} />
                   <div className="hsi-num">0{i + 1}</div>
-                  <div className="hsi-icon">{item.icon}</div>
-                  <h3>{item.title}</h3>
-                  <p>{item.sub}</p>
+                  <div className="hsi-content">
+                    <div className="hsi-icon">{item.icon}</div>
+                    <h3>{item.title}</h3>
+                    <p>{item.sub}</p>
+                  </div>
                 </div>
               ))}
             </motion.div>

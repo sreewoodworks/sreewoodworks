@@ -14,7 +14,7 @@ const SERVICES = ['Modular Kitchen', 'Wardrobes', 'TV Unit', 'Doors & Windows', 
 
 const contactItems = [
   { icon: '📞', label: 'Phone',         value: <a href="tel:+919876543210" style={{ color: 'inherit' }}>+91 98765 43210</a> },
-  { icon: '📧', label: 'Email',         value: <a href="mailto:info@woodcraft.in" style={{ color: 'inherit' }}>info@woodcraft.in</a> },
+  { icon: '📧', label: 'Email',         value: <a href="mailto:sreewoodworks25@gmail.com" style={{ color: 'inherit' }}>sreewoodworks25@gmail.com</a> },
   { icon: '📍', label: 'Showroom',      value: 'Plot 42, Road No. 12, Banjara Hills, Hyderabad — 500034' },
   { icon: '🕒', label: 'Working Hours', value: 'Monday – Saturday: 9:00 AM – 7:00 PM' },
 ];
@@ -52,6 +52,8 @@ export default function Contact() {
     e.preventDefault();
     const errs = validate(fields);
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    const body = `Name: ${fields.name}%0APhone: ${fields.phone}%0AService: ${fields.service}%0AMessage: ${fields.message}`;
+    window.open(`mailto:sreewoodworks25@gmail.com?subject=New Enquiry — ${fields.service}&body=${body}`);
     setSent(true);
   };
 

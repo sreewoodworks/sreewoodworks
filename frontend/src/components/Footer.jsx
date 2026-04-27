@@ -9,8 +9,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="footer-brand">
             <Link to="/" className="nav-logo">
-              <span className="logo-mark">🪵</span>
-              WoodCraft
+              <img src="/logo.png" alt="SreeWoodWorks" className="nav-logo-img" />
             </Link>
             <p>
               Premium carpentry &amp; furnishing crafted with passion. We turn raw wood
@@ -64,7 +63,7 @@ export default function Footer() {
             <ul className="footer-contact-list">
               <li className="fci"><span className="icon">📍</span><span>Banjara Hills, Hyderabad, Telangana — 500034</span></li>
               <li className="fci"><span className="icon">📞</span><a href="tel:+919876543210">+91 98765 43210</a></li>
-              <li className="fci"><span className="icon">📧</span><a href="mailto:info@woodcraft.in">info@woodcraft.in</a></li>
+              <li className="fci"><span className="icon">📧</span><a href="mailto:sreewoodworks25@gmail.com">sreewoodworks25@gmail.com</a></li>
               <li className="fci"><span className="icon">🕒</span><span>Mon – Sat: 9 AM – 7 PM</span></li>
             </ul>
           </div>

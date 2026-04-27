@@ -33,8 +33,7 @@ export default function Navbar() {
         <div className="container">
           <div className="nav-inner">
             <Link to="/" className="nav-logo" onClick={close}>
-              <span className="logo-mark">🪵</span>
-              WoodCraft
+              <img src="/logo.png" alt="SreeWoodWorks" className="nav-logo-img" />
             </Link>
 
             <div className="nav-menu">

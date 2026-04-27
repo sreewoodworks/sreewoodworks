@@ -444,7 +444,7 @@ export default function Home() {
                   <h4>{p.title}</h4>
                   <span className="cat">{p.cat}</span>
                 </div>
-                <Link to="/products" className="proj-btn">View Details →</Link>
+                <a href={`https://wa.me/919876543210?text=Hi%2C%20I%20am%20interested%20in%20${encodeURIComponent(p.title)}`} target="_blank" rel="noreferrer" className="proj-btn">💬 Enquiry</a>
               </motion.div>
             ))}
           </motion.div>

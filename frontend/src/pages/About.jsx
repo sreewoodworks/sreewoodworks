@@ -145,7 +145,7 @@ export default function About() {
                 We believe you should see exactly what you're getting before a single nail is driven.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.75rem' }}>
-                <Link to="/portfolio" className="btn btn-primary">View Our Work</Link>
+                <Link to="/products" className="btn btn-primary">View Our Work</Link>
                 <Link to="/contact"   className="btn btn-ghost">Get in Touch</Link>
               </div>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
@@ -290,7 +290,7 @@ export default function About() {
           <p>Book a free consultation today. Our designers will visit your space, understand your needs, and deliver a detailed design + quote within 24 hours.</p>
           <div className="cta-actions">
             <Link to="/contact"   className="btn btn-primary btn-lg">Book Free Visit</Link>
-            <Link to="/portfolio" className="btn btn-outline btn-lg">See Our Portfolio</Link>
+            <Link to="/products" className="btn btn-outline btn-lg">See Our Products</Link>
           </div>
         </div>
       </motion.section>

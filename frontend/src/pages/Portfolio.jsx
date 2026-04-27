@@ -8,31 +8,32 @@ const fadeUp = {
 };
 
 const projectImages = [
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.26.jpeg', category: 'kitchen', title: 'Modern Modular Kitchen', location: 'Jubilee Hills' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.27.jpeg', category: 'bedroom', title: 'Master Bedroom Suite', location: 'Gachibowli' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.28.jpeg', category: 'office', title: 'Executive Office Setup', location: 'Madhapur' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.29.jpeg', category: 'custom', title: 'Premium TV Unit', location: 'Banjara Hills' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.30.jpeg', category: 'kitchen', title: 'Island Kitchen Design', location: 'Kukatpally' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.31.jpeg', category: 'bedroom', title: 'Luxury Wardrobe', location: 'HITEC City' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.32.jpeg', category: 'custom', title: 'Teak Wood Pooja Mandir', location: 'Miyapur' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.33.jpeg', category: 'kitchen', title: 'Compact U-Kitchen', location: 'Ameerpet' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.34.jpeg', category: 'bedroom', title: 'Kids Bedroom', location: 'Kondapur' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.35.jpeg', category: 'office', title: 'Tech Startup Hub', location: 'Financial District' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.36.jpeg', category: 'custom', title: 'Handcrafted Dining Table', location: 'Secunderabad' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.37.jpeg', category: 'kitchen', title: 'Rustic Kitchen Style', location: 'Manikonda' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.38.jpeg', category: 'bedroom', title: 'Modern Guest Room', location: 'Uppal' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.39.jpeg', category: 'office', title: 'Conference Room', location: 'Begumpet' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.40.jpeg', category: 'custom', title: 'Glass Partition Wall', location: 'Somajiguda' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.41.jpeg', category: 'kitchen', title: 'Classic White Kitchen', location: 'Nallagandla' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.42.jpeg', category: 'bedroom', title: 'Walk-in Closet', location: 'Tellapur' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.43.jpeg', category: 'custom', title: 'Custom Bookshelf', location: 'Kokapet' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.44.jpeg', category: 'kitchen', title: 'Smart Kitchen Solution', location: 'Lingampally' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.45.jpeg', category: 'bedroom', title: 'Contemporary Bed Frame', location: 'Hafeezpet' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.46.jpeg', category: 'office', title: 'Collaborative Workspace', location: 'Madhapur' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.47.jpeg', category: 'custom', title: 'Designer Shoe Rack', location: 'Kukatpally' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.48.jpeg', category: 'kitchen', title: 'High-Gloss Kitchen', location: 'Gachibowli' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.49.jpeg', category: 'bedroom', title: 'Minimalist Wardrobe', location: 'Jubilee Hills' },
-  { src: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.50.jpeg', category: 'office', title: 'Home Office Nook', location: 'Banjara Hills' },
+  { src: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_19_36 PM.png',               category: 'kitchen',  title: 'Modern Modular Kitchen',            location: 'Jubilee Hills' },
+  { src: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_19_57 PM.png',               category: 'bedroom',  title: 'Luxury Interior Design',            location: 'Gachibowli' },
+  { src: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_20_06 PM.png',               category: 'office',   title: 'Premium Workspace Setup',           location: 'Madhapur' },
+  { src: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_20_13 PM.png',               category: 'custom',   title: 'Designer Living Room Unit',         location: 'Banjara Hills' },
+  { src: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_20_23 PM.png',               category: 'kitchen',  title: 'Island Kitchen Design',             location: 'Kukatpally' },
+  { src: '/portfolio-images/Handcrafted Teakwood cot.png',                               category: 'bedroom',  title: 'Handcrafted Teakwood Cot',          location: 'HITEC City' },
+  { src: '/portfolio-images/Handcrafted Teakwood cot queensize21k King size30k.png',     category: 'bedroom',  title: 'Queen & King Size Teakwood Cot',    location: 'Miyapur' },
+  { src: '/portfolio-images/Teak Cane Panel Cabinet 21000rs.png',                        category: 'custom',   title: 'Teak Cane Panel Cabinet',           location: 'Ameerpet' },
+  { src: '/portfolio-images/Teak Cane Panel Cabinet2.png',                               category: 'custom',   title: 'Teak Cane Cabinet — Side View',     location: 'Kondapur' },
+  { src: '/portfolio-images/Teak Cane Panel Cabinet3.png',                               category: 'custom',   title: 'Teak Cane Cabinet — Detail',        location: 'Financial District' },
+  { src: '/portfolio-images/Teak Elegance Console Table 4500rs.png',                     category: 'custom',   title: 'Teak Elegance Console Table',       location: 'Secunderabad' },
+  { src: '/portfolio-images/Teak Elegance Console Table diff views2.png',                category: 'custom',   title: 'Console Table — Different Views',   location: 'Manikonda' },
+  { src: '/portfolio-images/teakWood coffee table with slatted shelf 6500rs.png',        category: 'custom',   title: 'Teakwood Coffee Table with Shelf',  location: 'Uppal' },
+  { src: '/portfolio-images/teakWood coffee table with slatted shelf2.png',              category: 'custom',   title: 'Coffee Table — Shelf Detail',       location: 'Begumpet' },
+  { src: '/portfolio-images/teakWood mosaic block tablestool square shaped 4000rs.png',  category: 'custom',   title: 'Mosaic Block Square Stool',         location: 'Somajiguda' },
+  { src: '/portfolio-images/teakWood mosaic block tablestool square shaped2.png',        category: 'custom',   title: 'Square Mosaic Stool — Top View',    location: 'Nallagandla' },
+  { src: '/portfolio-images/teakWood round mosaic stool designed 3000rs.png',            category: 'custom',   title: 'Round Mosaic Teakwood Stool',       location: 'Tellapur' },
+  { src: '/portfolio-images/teakWood round mosaic stool designed2.png',                  category: 'custom',   title: 'Mosaic Stool — Side View',          location: 'Kokapet' },
+  { src: '/portfolio-images/teakwood desk with drawers 15K.png',                         category: 'office',   title: 'Teakwood Desk with Drawers',        location: 'Lingampally' },
+  { src: '/portfolio-images/teakwood desk with drawers2.png',                            category: 'office',   title: 'Desk Drawer — Detail View',         location: 'Hafeezpet' },
+  { src: '/portfolio-images/teakwood round designed table 3000rs.png',                   category: 'custom',   title: 'Teakwood Round Designed Table',     location: 'Madhapur' },
+  { src: '/portfolio-images/teakwood round designed table top view2.png',                category: 'custom',   title: 'Round Table — Top View',            location: 'Kukatpally' },
+  { src: '/portfolio-images/teakwood round table darkpolished 2500rs.png',               category: 'custom',   title: 'Dark Polished Teakwood Table',      location: 'Gachibowli' },
+  { src: '/portfolio-images/teakwood round table darkpolished2.png',                     category: 'custom',   title: 'Dark Polish Table — Detail',        location: 'Jubilee Hills' },
+  { src: '/portfolio-images/teakwood round table plain 2000rs.png',                      category: 'custom',   title: 'Natural Teakwood Round Table',      location: 'Banjara Hills' },
+  { src: '/portfolio-images/teakwood round table plain2.png',                            category: 'custom',   title: 'Plain Teak Table — Side View',      location: 'Hyderabad' },
 ];
 
 const projects = projectImages.map((p, index) => ({
@@ -79,10 +80,10 @@ export default function Portfolio() {
             <motion.nav className="breadcrumb" variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
               <Link to="/">Home</Link>
               <span className="sep">›</span>
-              <span>Portfolio</span>
+              <span>Products</span>
             </motion.nav>
             <motion.h1 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-              Our Portfolio
+              Our Products
             </motion.h1>
             <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
               Explore our collection of premium woodwork projects across Hyderabad. From modern kitchens to bespoke furniture.

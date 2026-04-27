@@ -41,7 +41,7 @@ export default function Footer() {
               {[
                 { to: '/',          label: 'Home' },
                 { to: '/services',  label: 'Services' },
-                { to: '/portfolio', label: 'Portfolio' },
+                { to: '/products', label: 'Products' },
                 { to: '/about',     label: 'About Us' },
                 { to: '/contact',   label: 'Contact' },
               ].map(l => <Link key={l.to} to={l.to}>{l.label}</Link>)}

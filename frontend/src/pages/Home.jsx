@@ -45,11 +45,11 @@ const whyItems = [
 ];
 
 const projects = [
-  { icon: '🍳', label: 'Kitchen', title: 'Jubilee Hills Kitchen Makeover',  cat: 'Kitchen', img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.30.jpeg' },
-  { icon: '🚪', label: 'Bedroom', title: 'Gachibowli Master Bedroom Suite', cat: 'Bedroom', img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.31.jpeg' },
-  { icon: '💼', label: 'Office',  title: 'Madhapur Corporate Workspace',    cat: 'Office',  img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.35.jpeg' },
-  { icon: '🏠', label: 'Living',  title: 'Banjara Hills Living Room Unit',  cat: 'Custom',  img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.29.jpeg' },
-  { icon: '📚', label: 'Library', title: 'Hitech City Home Library',        cat: 'Custom',  img: '/portfolio-images/WhatsApp Image 2026-04-24 at 16.08.43.jpeg' },
+  { icon: '🍳', label: 'Kitchen', title: 'Modern Modular Kitchen',       cat: 'Kitchen', img: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_19_36 PM.png' },
+  { icon: '🚪', label: 'Bedroom', title: 'Handcrafted Teakwood Cot',     cat: 'Bedroom', img: '/portfolio-images/Handcrafted Teakwood cot.png' },
+  { icon: '💼', label: 'Office',  title: 'Teakwood Desk with Drawers',   cat: 'Office',  img: '/portfolio-images/teakwood desk with drawers 15K.png' },
+  { icon: '🏠', label: 'Living',  title: 'Teak Cane Panel Cabinet',      cat: 'Custom',  img: '/portfolio-images/Teak Cane Panel Cabinet 21000rs.png' },
+  { icon: '📚', label: 'Custom',  title: 'Teakwood Round Designed Table', cat: 'Custom', img: '/portfolio-images/teakwood round designed table 3000rs.png' },
 ];
 
 const testimonials = [
@@ -191,7 +191,7 @@ export default function Home() {
 
             <motion.div className="hero-actions" variants={fadeUp} transition={{ duration: 0.7, ease, delay: 0.3 }}>
               <Link to="/contact" className="btn btn-primary btn-lg">Get Free Quote</Link>
-              <Link to="/portfolio" className="btn btn-outline btn-lg">View Our Work</Link>
+              <Link to="/products" className="btn btn-outline btn-lg">View Our Work</Link>
             </motion.div>
 
             <motion.div className="hero-stats" variants={fadeUp} transition={{ duration: 0.7, ease, delay: 0.5 }}>
@@ -444,7 +444,7 @@ export default function Home() {
                   <h4>{p.title}</h4>
                   <span className="cat">{p.cat}</span>
                 </div>
-                <Link to="/portfolio" className="proj-btn">View Details →</Link>
+                <Link to="/products" className="proj-btn">View Details →</Link>
               </motion.div>
             ))}
           </motion.div>
@@ -456,7 +456,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <Link to="/portfolio" className="btn btn-dark">Explore Full Portfolio</Link>
+            <Link to="/products" className="btn btn-dark">Explore All Products</Link>
           </motion.div>
         </div>
       </section>

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import WhatsAppButton from './WhatsAppButton';
+import WhatsAppIcon from './WhatsAppIcon';
 
 export default function Layout() {
   /* Scroll-reveal observer */
@@ -49,8 +50,10 @@ export default function Layout() {
 
       {/* Mobile sticky CTA */}
       <div className="sticky-cta">
-        <a href="tel:+919876543210" className="btn btn-primary btn-sm">📞 Call Now</a>
-        <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-sm">💬 WhatsApp</a>
+        <a href="tel:+919840486789" className="btn btn-primary btn-sm">📞 Call Now</a>
+        <a href="https://wa.me/919840486789" target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-sm">
+          <WhatsAppIcon size={18} /> WhatsApp
+        </a>
       </div>
     </>
   );

@@ -1,39 +1,10 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ALL_PRODUCTS, WA } from '../data/products';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
-const WA = '919876543210';
-
-const ALL_PRODUCTS = [
-  { id: 1,  img: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_19_36 PM.png',              category: 'kitchen',  title: 'Modern Modular Kitchen',           price: null,   rating: 4.8, reviews: 124 },
-  { id: 2,  img: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_19_57 PM.png',              category: 'bedroom',  title: 'Luxury Interior Design',           price: null,   rating: 4.7, reviews: 98  },
-  { id: 3,  img: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_20_06 PM.png',              category: 'office',   title: 'Premium Workspace Setup',          price: null,   rating: 4.6, reviews: 76  },
-  { id: 4,  img: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_20_13 PM.png',              category: 'custom',   title: 'Designer Living Room Unit',        price: null,   rating: 4.9, reviews: 143 },
-  { id: 5,  img: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_20_23 PM.png',              category: 'kitchen',  title: 'Island Kitchen Design',            price: null,   rating: 4.7, reviews: 89  },
-  { id: 6,  img: '/portfolio-images/Handcrafted Teakwood cot.png',                             category: 'bedroom',  title: 'Handcrafted Teakwood Cot',         price: 21000,  rating: 4.9, reviews: 212 },
-  { id: 7,  img: '/portfolio-images/Handcrafted Teakwood cot queensize21k King size30k.png',   category: 'bedroom',  title: 'Queen & King Size Teakwood Cot',   price: 21000,  rating: 4.8, reviews: 187 },
-  { id: 8,  img: '/portfolio-images/Teak Cane Panel Cabinet 21000rs.png',                      category: 'custom',   title: 'Teak Cane Panel Cabinet',          price: 21000,  rating: 4.7, reviews: 156 },
-  { id: 9,  img: '/portfolio-images/Teak Cane Panel Cabinet2.png',                             category: 'custom',   title: 'Teak Cane Cabinet — Side View',    price: 21000,  rating: 4.7, reviews: 156 },
-  { id: 10, img: '/portfolio-images/Teak Cane Panel Cabinet3.png',                             category: 'custom',   title: 'Teak Cane Cabinet — Detail',       price: 21000,  rating: 4.7, reviews: 156 },
-  { id: 11, img: '/portfolio-images/Teak Elegance Console Table 4500rs.png',                   category: 'custom',   title: 'Teak Elegance Console Table',      price: 4500,   rating: 4.6, reviews: 203 },
-  { id: 12, img: '/portfolio-images/Teak Elegance Console Table diff views2.png',              category: 'custom',   title: 'Console Table — Alt View',         price: 4500,   rating: 4.6, reviews: 203 },
-  { id: 13, img: '/portfolio-images/teakWood coffee table with slatted shelf 6500rs.png',      category: 'custom',   title: 'Teakwood Coffee Table with Shelf', price: 6500,   rating: 4.8, reviews: 178 },
-  { id: 14, img: '/portfolio-images/teakWood coffee table with slatted shelf2.png',            category: 'custom',   title: 'Coffee Table — Shelf Detail',      price: 6500,   rating: 4.8, reviews: 178 },
-  { id: 15, img: '/portfolio-images/teakWood mosaic block tablestool square shaped 4000rs.png',category: 'custom',   title: 'Mosaic Block Square Stool',        price: 4000,   rating: 4.5, reviews: 134 },
-  { id: 16, img: '/portfolio-images/teakWood mosaic block tablestool square shaped2.png',      category: 'custom',   title: 'Square Mosaic Stool — Top View',   price: 4000,   rating: 4.5, reviews: 134 },
-  { id: 17, img: '/portfolio-images/teakWood round mosaic stool designed 3000rs.png',          category: 'custom',   title: 'Round Mosaic Teakwood Stool',      price: 3000,   rating: 4.6, reviews: 167 },
-  { id: 18, img: '/portfolio-images/teakWood round mosaic stool designed2.png',                category: 'custom',   title: 'Mosaic Stool — Side View',         price: 3000,   rating: 4.6, reviews: 167 },
-  { id: 19, img: '/portfolio-images/teakwood desk with drawers 15K.png',                       category: 'office',   title: 'Teakwood Desk with Drawers',       price: 15000,  rating: 4.9, reviews: 245 },
-  { id: 20, img: '/portfolio-images/teakwood desk with drawers2.png',                          category: 'office',   title: 'Desk Drawer — Detail View',        price: 15000,  rating: 4.9, reviews: 245 },
-  { id: 21, img: '/portfolio-images/teakwood round designed table 3000rs.png',                 category: 'custom',   title: 'Teakwood Round Designed Table',    price: 3000,   rating: 4.7, reviews: 192 },
-  { id: 22, img: '/portfolio-images/teakwood round designed table top view2.png',              category: 'custom',   title: 'Round Table — Top View',           price: 3000,   rating: 4.7, reviews: 192 },
-  { id: 23, img: '/portfolio-images/teakwood round table darkpolished 2500rs.png',             category: 'custom',   title: 'Dark Polished Teakwood Table',     price: 2500,   rating: 4.5, reviews: 118 },
-  { id: 24, img: '/portfolio-images/teakwood round table darkpolished2.png',                   category: 'custom',   title: 'Dark Polish Table — Detail',       price: 2500,   rating: 4.5, reviews: 118 },
-  { id: 25, img: '/portfolio-images/teakwood round table plain 2000rs.png',                    category: 'custom',   title: 'Natural Teakwood Round Table',     price: 2000,   rating: 4.4, reviews: 97  },
-  { id: 26, img: '/portfolio-images/teakwood round table plain2.png',                          category: 'custom',   title: 'Plain Teak Table — Side View',     price: 2000,   rating: 4.4, reviews: 97  },
-];
-
-const CATEGORIES = ['Kitchen', 'Bedroom', 'Office', 'Custom'];
+const CATEGORIES = ['Kitchen', 'Bedroom', 'Office', 'Living', 'Custom'];
 const SORT_OPTIONS = [
   { value: 'popular',    label: 'Most Popular'        },
   { value: 'price-asc',  label: 'Price: Low to High'  },
@@ -56,11 +27,12 @@ function waLink(title) {
 }
 
 export default function Portfolio() {
+  const [searchQuery, setSearchQuery]   = useState('');
   const [selectedCats, setSelectedCats] = useState([]);
   const [minPrice, setMinPrice]         = useState('');
   const [maxPrice, setMaxPrice]         = useState('');
   const [sortBy, setSortBy]             = useState('popular');
-  const [applied, setApplied]           = useState({ cats: [], min: '', max: '', sort: 'popular' });
+  const [applied, setApplied]           = useState({ search: '', cats: [], min: '', max: '', sort: 'popular' });
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const toggleCat = cat => {
@@ -70,20 +42,31 @@ export default function Portfolio() {
   };
 
   const applyFilters = () => {
-    setApplied({ cats: selectedCats, min: minPrice, max: maxPrice, sort: sortBy });
+    setApplied({ search: searchQuery, cats: selectedCats, min: minPrice, max: maxPrice, sort: sortBy });
     setMobileFiltersOpen(false);
   };
 
   const clearFilters = () => {
+    setSearchQuery('');
     setSelectedCats([]);
     setMinPrice('');
     setMaxPrice('');
     setSortBy('popular');
-    setApplied({ cats: [], min: '', max: '', sort: 'popular' });
+    setApplied({ search: '', cats: [], min: '', max: '', sort: 'popular' });
   };
 
   const visible = useMemo(() => {
     let list = [...ALL_PRODUCTS];
+    
+    // Search Filter
+    if (applied.search.trim()) {
+      const q = applied.search.toLowerCase();
+      list = list.filter(p => 
+        p.title.toLowerCase().includes(q) || 
+        p.description.toLowerCase().includes(q)
+      );
+    }
+
     if (applied.cats.length > 0) {
       list = list.filter(p => applied.cats.map(c => c.toLowerCase()).includes(p.category));
     }
@@ -106,6 +89,18 @@ export default function Portfolio() {
     <aside className="prod-sidebar">
       <div className="prod-sidebar-header">
         <span className="prod-sidebar-title">⚙ Filters</span>
+      </div>
+
+      <div className="prod-filter-section">
+        <div className="prod-filter-label">SEARCH</div>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          className="prod-search-input"
+          onKeyDown={e => e.key === 'Enter' && applyFilters()}
+        />
       </div>
 
       <div className="prod-filter-section">
@@ -205,32 +200,35 @@ export default function Portfolio() {
                   transition={{ duration: 0.35, delay: (idx % 9) * 0.04 }}
                   className="prod-card"
                 >
-                  <div className="prod-card-img">
-                    <img src={p.img} alt={p.title} loading="lazy" />
-                    <span className={`prod-cat-badge prod-cat-${p.category}`}>
-                      {p.category.charAt(0).toUpperCase() + p.category.slice(1)}
-                    </span>
-                  </div>
+                  <Link to={`/products/${p.id}`} className="prod-card-img-link">
+                    <div className="prod-card-img">
+                      <img src={p.images[0]} alt={p.title} loading="lazy" />
+                      <span className={`prod-cat-badge prod-cat-${p.category}`}>
+                        {p.category.charAt(0).toUpperCase() + p.category.slice(1)}
+                      </span>
+                      <span className="prod-custom-badge">📐 Custom Size</span>
+                      {p.images.length > 1 && (
+                        <span className="prod-img-count">{p.images.length} photos</span>
+                      )}
+                    </div>
+                  </Link>
                   <div className="prod-card-body">
                     <h4 className="prod-card-title">{p.title}</h4>
                     <div className="prod-card-rating">
                       <Stars rating={p.rating} />
                       <span className="prod-review-count">({p.reviews})</span>
                     </div>
-                    <div className="prod-card-price">
-                      {p.price
-                        ? <><span className="prod-price-val">₹{p.price.toLocaleString('en-IN')}</span></>
-                        : <span className="prod-price-quote">Get Quote</span>
-                      }
-                    </div>
                     <div className="prod-card-actions">
+                      <Link to={`/products/${p.id}`} className="prod-view-btn">
+                        View Product →
+                      </Link>
                       <a
                         href={waLink(p.title)}
                         target="_blank"
                         rel="noreferrer"
                         className="prod-enquiry-btn"
                       >
-                        💬 Enquiry
+                        <WhatsAppIcon size={18} /> Enquiry
                       </a>
                     </div>
                   </div>
@@ -255,7 +253,9 @@ export default function Portfolio() {
           <p>We craft custom furniture to your exact specifications. Share your idea and we'll bring it to life.</p>
           <div className="cta-actions">
             <Link to="/contact" className="btn btn-primary btn-lg">Contact Us</Link>
-            <a href={`https://wa.me/${WA}?text=Hi%2C%20I%20need%20custom%20furniture`} target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-lg">💬 WhatsApp Us</a>
+            <a href={`https://wa.me/${WA}?text=Hi%2C%20I%20need%20custom%20furniture`} target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-lg">
+              <WhatsAppIcon size={22} /> WhatsApp Us
+            </a>
           </div>
         </div>
       </section>

@@ -2,6 +2,24 @@ import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 
+/* ── about page icons ── */
+const AboutIcon = ({ id, size = 24 }) => {
+  const icons = {
+    ruler: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}><path d="M8 34V10l4 4-4 4"/><path d="M8 34h24l-4-4 4-4"/><path d="M8 34L32 8"/><path d="M15 27l2-2M22 20l2-2"/></svg>,
+    bolt:  <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}><rect x="14" y="5" width="12" height="7" rx="1.5"/><path d="M12 12h16l3 20H9z"/><path d="M12 19h16M11 26h18"/></svg>,
+    saw:   <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}><path d="M10 32l5-5 14-14 4 4L19 31l-5 5-4-4z"/><path d="M29 13l3-5 3 3-5 3"/><path d="M10 36h8"/></svg>,
+    shield:<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}><path d="M20 4L7 9v10c0 8 6 13 13 16 7-3 13-8 13-16V9z"/><path d="M14 21l4 4 9-9"/></svg>,
+    trophy:<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}><path d="M13 6h14v12a7 7 0 01-14 0z"/><path d="M8 10H13M27 10h5M8 10a5 5 0 005 5M32 10a5 5 0 01-5 5"/><path d="M17 28v6M23 28v6M12 34h16"/></svg>,
+    link:  <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}><path d="M15 14c-4 0-7 3-7 7s3 7 7 7h3"/><path d="M22 14h3c4 0 7 3 7 7s-3 7-7 7h-3"/><path d="M15 21h10"/></svg>,
+    target:<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width={size} height={size}><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="9"/><circle cx="20" cy="20" r="4"/></svg>,
+  };
+  return (
+    <div style={{ width:'56px', height:'56px', border:'1.5px solid rgba(200,146,42,0.3)', borderRadius:'13px', display:'flex', alignItems:'center', justifyContent:'center', color:'var(--accent)', background:'rgba(200,146,42,0.07)', flexShrink:0 }}>
+      {icons[id] || null}
+    </div>
+  );
+};
+
 /* ── animation tokens ── */
 const ease      = [0.22, 1, 0.36, 1];
 const fadeUp    = { hidden: { opacity: 0, y: 48 }, visible: { opacity: 1, y: 0 } };
@@ -11,22 +29,16 @@ const stagger   = { hidden: {}, visible: { transition: { staggerChildren: 0.12 }
 
 /* ── data ── */
 const principles = [
-  { icon: '📐', title: 'Design-First Approach',   desc: 'Every project starts with a detailed 3D render so you can visualise the end result before production begins.' },
-  { icon: '🔩', title: 'Factory-Tested Hardware', desc: 'We use only Hettich, Hafele & Blum fittings — brands trusted by premium European furniture makers.' },
-  { icon: '🪚', title: 'In-House Production',     desc: 'All cutting, drilling, and finishing happens in our own workshop — no outsourcing, no surprises.' },
-  { icon: '🛡️', title: 'Warranty on Every Job',  desc: '5-year structural warranty on all fixed furniture. Hardware defects replaced free within warranty period.' },
+  { id: 'ruler',  title: 'Design-First Approach',   desc: 'Every project starts with a detailed 3D render so you can visualise the end result before production begins.' },
+  { id: 'bolt',   title: 'Factory-Tested Hardware', desc: 'We use only Hettich, Hafele & Blum fittings — brands trusted by premium European furniture makers.' },
+  { id: 'saw',    title: 'In-House Production',     desc: 'All cutting, drilling, and finishing happens in our own workshop — no outsourcing, no surprises.' },
+  { id: 'shield', title: 'Warranty on Every Job',  desc: '5-year structural warranty on all fixed furniture. Hardware defects replaced free within warranty period.' },
 ];
 
 const values = [
-  { icon: '🏆', title: 'Quality First',  desc: 'We never compromise on material grade or finish quality. Every joint, every panel, every coat of paint is inspected before delivery.' },
-  { icon: '🤝', title: 'Client Trust',   desc: 'Transparent pricing, clear timelines, and honest communication. No hidden charges — what we quote is what you pay.' },
-  { icon: '🎯', title: 'Precision Work', desc: 'Our craftsmen hold tolerances of ±1mm. Every measurement is verified three times before cutting begins.' },
-];
-
-const team = [
-  { initial: 'R', name: 'Ravi Kumar',   role: 'Master Carpenter & Founder',  exp: '25+ years crafting premium furniture across South India.' },
-  { initial: 'S', name: 'Sunita Reddy', role: 'Lead Interior Designer',       exp: 'B.Arch + 15 years designing residential & commercial spaces.' },
-  { initial: 'A', name: 'Ajay Patil',   role: 'Workshop Head',                exp: 'Oversees 50+ craftsmen with a focus on quality control and on-time delivery.' },
+  { id: 'trophy', title: 'Quality First',  desc: 'We never compromise on material grade or finish quality. Every joint, every panel, every coat of paint is inspected before delivery.' },
+  { id: 'link',   title: 'Client Trust',   desc: 'Transparent pricing, clear timelines, and honest communication. No hidden charges — what we quote is what you pay.' },
+  { id: 'target', title: 'Precision Work', desc: 'Our craftsmen hold tolerances of ±1mm. Every measurement is verified three times before cutting begins.' },
 ];
 
 const badges = [
@@ -93,7 +105,7 @@ export default function About() {
               Our Story
             </motion.span>
             <motion.h1 variants={fadeUp}>
-              About WoodCraft
+              About Sree Wood Works
             </motion.h1>
             <motion.p variants={fadeUp}>
               Fifteen years of turning raw wood into spaces people love to live and work in.
@@ -129,16 +141,15 @@ export default function About() {
               transition={{ duration: 0.8, ease }}
             >
               <span className="label-tag">Our Story</span>
-              <h2>Crafting Spaces Since 1999</h2>
+              <h2>Crafting Spaces in Chennai</h2>
               <p>
-                WoodCraft was founded in 1999 by master carpenter Ravi Kumar in a modest workshop in Hyderabad's
-                old city. Starting with a single lathe and a dream to make quality furniture accessible, we've grown
-                into a 50-person studio with a fully equipped 8,000 sq.ft production facility in Nacharam.
+                Sree Wood Works was founded by a master carpenter with a passion for quality and a vision to make
+                premium furniture accessible to every home. Starting from a modest workshop in Kottivakkam, Chennai,
+                we have grown steadily — built entirely on craftsmanship and word-of-mouth trust.
               </p>
               <p>
-                Over 1200 projects later — spanning modular kitchens, wardrobes, corporate offices, and bespoke
-                handcrafted pieces — our mission remains the same: deliver furniture that lasts generations,
-                at a price that makes sense.
+                From modular kitchens to wardrobes, corporate offices, and bespoke handcrafted pieces — our mission
+                has never changed: deliver furniture that lasts generations, at a price that makes sense.
               </p>
               <p>
                 Every project begins with a free home visit, a detailed 3D design, and a transparent cost breakdown.
@@ -181,7 +192,7 @@ export default function About() {
                 transition={{ duration: 0.55, ease, delay: i * 0.1 }}
                 whileHover={{ y: -4, transition: { duration: 0.25 } }}
               >
-                <div className="vp-icon">{p.icon}</div>
+                <AboutIcon id={p.id} />
                 <div className="vp-text">
                   <h4>{p.title}</h4>
                   <p>{p.desc}</p>
@@ -231,45 +242,9 @@ export default function About() {
                 transition={{ duration: 0.6, ease, delay: i * 0.15 }}
                 whileHover={{ y: -6, transition: { duration: 0.25 } }}
               >
-                <div className="vc-icon">{v.icon}</div>
+                <AboutIcon id={v.id} />
                 <h4>{v.title}</h4>
                 <p>{v.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Team ── */}
-      <section className="section">
-        <div className="container">
-          <motion.div className="section-head"
-            initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6, ease }}>
-            <span className="label-tag">The People Behind the Wood</span>
-            <h2>Meet Our Team</h2>
-            <p>Passionate professionals who bring your vision to life with decades of combined expertise.</p>
-            <div className="underline" />
-          </motion.div>
-          <div className="team-grid">
-            {team.map((m, i) => (
-              <motion.div
-                className="team-card"
-                key={m.name}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease, delay: i * 0.15 }}
-                whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              >
-                <div className="team-img" style={{ fontSize: '3rem', background: 'linear-gradient(135deg, #F5F5DC, #D4C5B0)' }}>
-                  {m.initial}
-                </div>
-                <div className="team-body">
-                  <h4>{m.name}</h4>
-                  <div className="role">{m.role}</div>
-                  <p>{m.exp}</p>
-                </div>
               </motion.div>
             ))}
           </div>

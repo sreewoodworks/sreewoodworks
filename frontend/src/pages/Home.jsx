@@ -5,14 +5,81 @@ import {
   useScroll,
   useTransform,
   useInView,
-  AnimatePresence,
 } from 'framer-motion';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 /* ─── Animation Variants ─── */
 const ease = [0.22, 1, 0.36, 1];
 const fadeUp  = { hidden: { opacity: 0, y: 48   }, visible: { opacity: 1, y: 0     } };
 const scaleIn = { hidden: { opacity: 0, scale: 0.88 }, visible: { opacity: 1, scale: 1 } };
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } } };
+
+/* ─── Home Icons (stroke-based SVG) ─── */
+const HomeIcon = ({ id }) => {
+  const icons = {
+    design: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <path d="M27 7l6 6L15 31H9v-6L27 7z"/>
+        <path d="M24 10l6 6"/>
+        <path d="M9 35h22"/>
+      </svg>
+    ),
+    material: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <rect x="7" y="9" width="26" height="5" rx="1.5"/>
+        <rect x="7" y="18" width="26" height="5" rx="1.5"/>
+        <rect x="7" y="27" width="26" height="5" rx="1.5"/>
+      </svg>
+    ),
+    craft: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <path d="M10 32l5-5 14-14 4 4L19 31l-5 5-4-4z"/>
+        <path d="M29 13l3-5 3 3-5 3"/>
+        <path d="M10 36h8"/>
+      </svg>
+    ),
+    install: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <path d="M6 21L20 9l14 12"/>
+        <path d="M11 19v15h18V19"/>
+        <path d="M16 34v-9h8v9"/>
+      </svg>
+    ),
+    hammer: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <path d="M10 32l14-14"/>
+        <path d="M22 10l8 8-4 4-8-8z"/>
+        <path d="M22 10l-4-4-6 6 4 4"/>
+        <path d="M8 36l4-4"/>
+      </svg>
+    ),
+    leaf: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <path d="M20 33V17"/>
+        <path d="M20 17C20 17 11 12 9 5c5 1 9 5 11 12z"/>
+        <path d="M20 21C20 21 29 16 31 9c-5 1-9 5-11 12z"/>
+        <path d="M10 34h20"/>
+      </svg>
+    ),
+    calendar: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <rect x="6" y="9" width="28" height="26" rx="3"/>
+        <path d="M6 17h28"/>
+        <path d="M14 6v6M26 6v6"/>
+        <path d="M14 24h2M20 24h2M26 24h2"/>
+        <path d="M14 30h2M20 30h2"/>
+      </svg>
+    ),
+    custom: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
+        <circle cx="20" cy="20" r="4"/>
+        <path d="M20 8v4M20 28v4M8 20h4M28 20h4"/>
+        <path d="M12 12l2.8 2.8M25.2 25.2L28 28M28 12l-2.8 2.8M14.8 25.2L12 28"/>
+      </svg>
+    ),
+  };
+  return icons[id] || null;
+};
 
 /* ─── Data ─── */
 const services = [
@@ -23,10 +90,10 @@ const services = [
 ];
 
 const craftProcess = [
-  { step: '01', icon: '✏️', title: 'Design Consultation', desc: 'We visit your space, understand your needs, and create detailed 3D renders so you can visualise every corner before production begins.' },
-  { step: '02', icon: '🌳', title: 'Material Selection',  desc: 'Choose from Grade-A teak, marine ply, and imported laminates. We walk you through samples and recommend the best fit for your budget.' },
-  { step: '03', icon: '🪚', title: 'Master Crafting',     desc: 'Our 35-member workshop team cuts, finishes, and assembles every piece in-house with ±1mm tolerances and triple quality checks.' },
-  { step: '04', icon: '🏠', title: 'Clean Installation',  desc: 'We arrive on schedule, install with precision, clean up completely, and hand over a space ready to live in — same day.' },
+  { step: '01', id: 'design',   title: 'Design Consultation', desc: 'We visit your space, understand your needs, and create detailed 3D renders so you can visualise every corner before production begins.' },
+  { step: '02', id: 'material', title: 'Material Selection',  desc: 'Choose from Grade-A teak, marine ply, and imported laminates. We walk you through samples and recommend the best fit for your budget.' },
+  { step: '03', id: 'craft',    title: 'Master Crafting',     desc: 'Our 35-member workshop team cuts, finishes, and assembles every piece in-house with ±1mm tolerances and triple quality checks.' },
+  { step: '04', id: 'install',  title: 'Clean Installation',  desc: 'We arrive on schedule, install with precision, clean up completely, and hand over a space ready to live in — same day.' },
 ];
 
 const hScrollItems = [
@@ -38,25 +105,20 @@ const hScrollItems = [
 ];
 
 const whyItems = [
-  { icon: '🔨', title: 'Skilled Craftsmanship', desc: '15+ years of mastering joinery, finishing and bespoke woodwork by expert craftsmen.' },
-  { icon: '🌳', title: 'Premium Materials',      desc: 'We source Grade-A teak, marine ply, and imported laminates for lasting quality.'     },
-  { icon: '📅', title: 'On-Time Delivery',       desc: 'Strict project timelines backed by weekly progress updates and clear milestones.'     },
-  { icon: '✏️', title: '100% Custom Designs',   desc: 'Every piece is designed from scratch — no off-the-shelf templates, ever.'           },
+  { id: 'hammer',   title: 'Skilled Craftsmanship', desc: '15+ years of mastering joinery, finishing and bespoke woodwork by expert craftsmen.' },
+  { id: 'leaf',     title: 'Premium Materials',      desc: 'We source Grade-A teak, marine ply, and imported laminates for lasting quality.'     },
+  { id: 'calendar', title: 'On-Time Delivery',       desc: 'Strict project timelines backed by weekly progress updates and clear milestones.'     },
+  { id: 'custom',   title: '100% Custom Designs',   desc: 'Every piece is designed from scratch — no off-the-shelf templates, ever.'           },
 ];
 
 const projects = [
-  { icon: '🍳', label: 'Kitchen', title: 'Modern Modular Kitchen',       cat: 'Kitchen', img: '/portfolio-images/ChatGPT Image Apr 26, 2026, 09_19_36 PM.png' },
-  { icon: '🚪', label: 'Bedroom', title: 'Handcrafted Teakwood Cot',     cat: 'Bedroom', img: '/portfolio-images/Handcrafted Teakwood cot.png' },
-  { icon: '💼', label: 'Office',  title: 'Teakwood Desk with Drawers',   cat: 'Office',  img: '/portfolio-images/teakwood desk with drawers 15K.png' },
-  { icon: '🏠', label: 'Living',  title: 'Teak Cane Panel Cabinet',      cat: 'Custom',  img: '/portfolio-images/Teak Cane Panel Cabinet 21000rs.png' },
-  { icon: '📚', label: 'Custom',  title: 'Teakwood Round Designed Table', cat: 'Custom', img: '/portfolio-images/teakwood round designed table 3000rs.png' },
+  { icon: '🍳', label: 'Kitchen', title: 'Modern Modular Kitchen',        cat: 'Kitchen', img: '/portfolio-images/modular kitchen/Modern minimalist L-shaped kitchen design.png' },
+  { icon: '🚪', label: 'Bedroom', title: 'Handcrafted Teakwood Cot',      cat: 'Bedroom', img: '/portfolio-images/bed/Handcrafted Teakwood cot.png' },
+  { icon: '💼', label: 'Office',  title: 'Teakwood Desk with Drawers',    cat: 'Office',  img: '/portfolio-images/teakwood desk with drawers/teakwood desk with drawers 15K.png' },
+  { icon: '🏠', label: 'Custom',  title: 'Teak Cane Panel Cabinet',       cat: 'Custom',  img: '/portfolio-images/Teak Cane Panel Cabinet/Teak Cane Panel Cabinet 21000rs.png' },
+  { icon: '📚', label: 'Custom',  title: 'Teakwood Round Designed Table', cat: 'Custom',  img: '/portfolio-images/teakwood round designed table/teakwood round designed table 3000rs.png' },
 ];
 
-const testimonials = [
-  { initial: 'R', name: 'Rajesh Mehta',  role: 'Homeowner, Jubilee Hills',       text: 'WoodCraft transformed our entire home. The modular kitchen is stunning — every detail was executed perfectly. Delivery was on time and the team was professional throughout.' },
-  { initial: 'P', name: 'Priya Sharma',  role: 'Interior Designer, Hyderabad',   text: 'I recommend WoodCraft to all my clients. The quality of their wardrobes and TV units is unmatched. Custom finishes are executed exactly as designed — no surprises.'        },
-  { initial: 'A', name: 'Arjun Reddy',   role: 'Tech Startup Founder, Madhapur', text: 'Our office furniture from WoodCraft is both functional and beautiful. The team understood our brand aesthetic and delivered a workspace our employees love.'               },
-];
 
 /* ─── Counter hook ─── */
 function useCounter(ref, target, suffix = '') {
@@ -93,7 +155,11 @@ function ProcessStep({ item, index, isLast }) {
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
       >
-        <div className="ps-icon">{item.icon}</div>
+        <div className="ps-icon">
+          <div style={{ width: '60px', height: '60px', border: '1.5px solid rgba(200,146,42,0.35)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', background: 'rgba(200,146,42,0.07)', flexShrink: 0 }}>
+            <HomeIcon id={item.id} />
+          </div>
+        </div>
         <div className="ps-body">
           <div className="ps-num">STEP {item.step}</div>
           <h4>{item.title}</h4>
@@ -125,15 +191,14 @@ export default function Home() {
   const heroBgY      = useTransform(scrollY, [0, 700], [0, 200]);
   const heroContentY = useTransform(scrollY, [0, 700], [0, 80]);
 
-  /* Floating furniture */
+  /* Floating showcase scroll */
   const floatRef = useRef(null);
   const { scrollYProgress: floatProg } = useScroll({
     target: floatRef,
     offset: ['start end', 'end start'],
   });
-  const furnitureX = useTransform(floatProg, [0, 1], ['-20%', '120%']);
-  const furnitureR = useTransform(floatProg, [0, 0.5, 1], [-6, 0, 6]);
-  const furnitureY = useTransform(floatProg, [0, 0.5, 1], [30, -20, 30]);
+  const furnitureRotate = useTransform(floatProg, [0, 1], [0, 360]);
+  const ringCounterRot  = useTransform(floatProg, [0, 1], [0, -200]);
 
   /* Horizontal scroll — measure track width dynamically */
   const hRef      = useRef(null);
@@ -157,12 +222,6 @@ export default function Home() {
   });
   const hX = useTransform(hProg, [0, 1], [0, -scrollDist]);
 
-  /* Testimonial auto-slider */
-  const [tIdx, setTIdx] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setTIdx(i => (i + 1) % testimonials.length), 4500);
-    return () => clearInterval(id);
-  }, []);
 
   return (
     <>
@@ -221,7 +280,7 @@ export default function Home() {
             {[
               { icon: '✅', title: 'Licensed & Insured',     sub: 'Fully certified studio'  },
               { icon: '🕒', title: '25+ Years Experience',   sub: 'Trusted since 1999'      },
-              { icon: '🏆', title: '1200+ Happy Clients',     sub: 'Across Hyderabad'        },
+              { icon: '🏆', title: '1200+ Happy Clients',     sub: 'Across Tamil Nadu'        },
               { icon: '🌳', title: 'Premium Materials Only', sub: 'Grade-A wood & hardware' },
             ].map(t => (
               <div className="trust-item" key={t.title}>
@@ -274,13 +333,74 @@ export default function Home() {
               </Link>
             </motion.div>
           </div>
-          <motion.div
-            className="float-furniture"
-            style={{ x: furnitureX, rotate: furnitureR, y: furnitureY }}
-            aria-hidden="true"
-          >
-            🪑
-          </motion.div>
+          {/* ── Right: Scroll-driven Showcase ── */}
+          <div className="float-showcase">
+            <div className="fsh-canvas">
+
+              {/* Outer dashed ring — rotates 360° on scroll */}
+              <motion.div className="fsh-orbit" style={{ rotate: furnitureRotate }} />
+
+              {/* Inner ring — counter-rotates */}
+              <motion.div className="fsh-inner-ring" style={{ rotate: ringCounterRot }} />
+
+              {/* Main circular product image */}
+              <motion.div
+                className="fsh-img-circle"
+                initial={{ opacity: 0, scale: 0.75 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease, delay: 0.2 }}
+              >
+                <img
+                  src="/portfolio-images/teakwood desk with drawers/teakwood desk with drawers 15K.png"
+                  alt="Teakwood Desk with Drawers"
+                />
+              </motion.div>
+
+              {/* Mini card — top right */}
+              <motion.div
+                className="fsh-mini fsh-mini-1"
+                initial={{ opacity: 0, x: 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease, delay: 0.55 }}
+              >
+                <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}>
+                  <img src="/portfolio-images/Teak Elegance Console Table/Teak Elegance Console Table 4500rs.png" alt="Console Table" />
+                  <div className="fsh-mini-lbl">Console Table</div>
+                </motion.div>
+              </motion.div>
+
+              {/* Mini card — bottom left */}
+              <motion.div
+                className="fsh-mini fsh-mini-2"
+                initial={{ opacity: 0, x: -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease, delay: 0.7 }}
+              >
+                <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}>
+                  <img src="/portfolio-images/bed/Handcrafted Teakwood cot.png" alt="Teakwood Cot" />
+                  <div className="fsh-mini-lbl">Teakwood Cot</div>
+                </motion.div>
+              </motion.div>
+
+              {/* Floating badge */}
+              <motion.div
+                className="fsh-badge"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.85, type: 'spring', bounce: 0.4 }}
+              >
+                <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}>
+                  <span className="fsh-badge-num">15+</span>
+                  <span className="fsh-badge-lbl">Years of Craft</span>
+                </motion.div>
+              </motion.div>
+
+            </div>
+          </div>
         </div>
       </div>
 
@@ -378,9 +498,9 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease }}
           >
-            <span className="label-tag">Why WoodCraft</span>
+            <span className="label-tag">Why Sree Wood Works</span>
             <h2>Built Different. Built Better.</h2>
-            <p>Four pillars that make every WoodCraft project an investment worth making.</p>
+            <p>Four pillars that make every Sree Wood Works project an investment worth making.</p>
             <div className="underline" />
           </motion.div>
 
@@ -399,7 +519,11 @@ export default function Home() {
                 transition={{ duration: 0.6, ease, delay: i * 0.1 }}
                 whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
               >
-                <div className="why-icon">{w.icon}</div>
+                <div className="why-icon">
+                  <div style={{ width: '60px', height: '60px', border: '1.5px solid rgba(200,146,42,0.35)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', background: 'rgba(200,146,42,0.07)' }}>
+                    <HomeIcon id={w.id} />
+                  </div>
+                </div>
                 <h4>{w.title}</h4>
                 <p>{w.desc}</p>
               </motion.div>
@@ -444,7 +568,9 @@ export default function Home() {
                   <h4>{p.title}</h4>
                   <span className="cat">{p.cat}</span>
                 </div>
-                <a href={`https://wa.me/919876543210?text=Hi%2C%20I%20am%20interested%20in%20${encodeURIComponent(p.title)}`} target="_blank" rel="noreferrer" className="proj-btn">💬 Enquiry</a>
+                <a href={`https://wa.me/919840486789?text=Hi%2C%20I%20am%20interested%20in%20${encodeURIComponent(p.title)}`} target="_blank" rel="noreferrer" className="proj-btn">
+                  <WhatsAppIcon size={16} /> Enquiry
+                </a>
               </motion.div>
             ))}
           </motion.div>
@@ -512,7 +638,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── TESTIMONIALS SLIDER ── */}
+      {/* ── GOOGLE REVIEWS CTA ── */}
       <section className="section">
         <div className="container">
           <motion.div
@@ -522,46 +648,27 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease }}
           >
-            <span className="label-tag">Client Stories</span>
-            <h2>What Our Clients Say</h2>
-            <p>Real feedback from homeowners, designers, and businesses who trusted WoodCraft.</p>
+            <span className="label-tag">Client Reviews</span>
+            <h2>See What Our Clients Say</h2>
+            <p>Real reviews from real customers on Google Maps.</p>
             <div className="underline" />
           </motion.div>
-
-          <div className="tslider">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={tIdx}
-                className="tslide-card"
-                initial={{ opacity: 0, x: 60 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -60 }}
-                transition={{ duration: 0.45, ease }}
-              >
-                <span className="tcard-quote">"</span>
-                <div className="tcard-stars">★★★★★</div>
-                <p className="tcard-text">{testimonials[tIdx].text}</p>
-                <div className="tcard-author">
-                  <div className="tcard-avatar">{testimonials[tIdx].initial}</div>
-                  <div>
-                    <div className="tcard-name">{testimonials[tIdx].name}</div>
-                    <div className="tcard-role">{testimonials[tIdx].role}</div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="tslide-dots">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  className={`tslide-dot${i === tIdx ? ' active' : ''}`}
-                  onClick={() => setTIdx(i)}
-                  aria-label={`Testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
-          </div>
+          <motion.div
+            style={{ textAlign: 'center', marginTop: '2rem' }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <a
+              href="https://maps.app.goo.gl/xspDJ6RNdctCrP8r9"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary btn-lg"
+            >
+              ⭐ Read Our Google Reviews
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -602,7 +709,7 @@ export default function Home() {
             transition={{ delay: 0.3 }}
           >
             <Link to="/contact" className="btn btn-primary btn-lg">Get Free Quote</Link>
-            <a href="tel:+919876543210" className="btn btn-outline btn-lg">📞 Call Now</a>
+            <a href="tel:+919840486789" className="btn btn-outline btn-lg">📞 Call Now</a>
           </motion.div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 /* ── animation tokens ── */
 const ease    = [0.22, 1, 0.36, 1];
@@ -119,26 +120,79 @@ const services = [
   },
 ];
 
+const SvcStepIcon = ({ id }) => {
+  const icons = {
+    chat:     <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M7 10h26a2 2 0 012 2v14a2 2 0 01-2 2H14l-7 4v-4a2 2 0 01-2-2V12a2 2 0 012-2z"/><path d="M13 18h14M13 23h9"/></svg>,
+    design:   <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M27 7l6 6L15 31H9v-6L27 7z"/><path d="M24 10l6 6"/><path d="M9 35h22"/></svg>,
+    material: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><rect x="7" y="9" width="26" height="5" rx="1.5"/><rect x="7" y="18" width="26" height="5" rx="1.5"/><rect x="7" y="27" width="26" height="5" rx="1.5"/></svg>,
+    craft:    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M10 32l5-5 14-14 4 4L19 31l-5 5-4-4z"/><path d="M29 13l3-5 3 3-5 3"/><path d="M10 36h8"/></svg>,
+    install:  <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M6 21L20 9l14 12"/><path d="M11 19v15h18V19"/><path d="M16 34v-9h8v9"/></svg>,
+  };
+  return (
+    <div style={{ width:'60px', height:'60px', border:'1.5px solid rgba(200,146,42,0.35)', borderRadius:'14px', display:'flex', alignItems:'center', justifyContent:'center', color:'var(--accent)', background:'rgba(200,146,42,0.07)', flexShrink:0 }}>
+      {icons[id] || null}
+    </div>
+  );
+};
+
+const MatIcon = ({ id }) => {
+  const icons = {
+    teak: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 34V18" /><path d="M20 18C20 18 12 14 10 7c4 1 8 4 10 11z" /><path d="M20 18C20 18 28 14 30 7c-4 1-8 4-10 11z" />
+        <path d="M20 24C20 24 14 21 12 15" /><path d="M20 24C20 24 26 21 28 15" />
+        <ellipse cx="20" cy="35" rx="6" ry="2" />
+      </svg>
+    ),
+    ply: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="6" y="8"  width="28" height="5" rx="1" />
+        <rect x="6" y="16" width="28" height="5" rx="1" />
+        <rect x="6" y="24" width="28" height="5" rx="1" />
+        <line x1="10" y1="13" x2="30" y2="13" strokeDasharray="3 2" strokeWidth="0.8" />
+        <line x1="10" y1="21" x2="30" y2="21" strokeDasharray="3 2" strokeWidth="0.8" />
+      </svg>
+    ),
+    mdf: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="7" y="7" width="26" height="26" rx="2" />
+        <line x1="7" y1="16" x2="33" y2="16" /><line x1="7" y1="24" x2="33" y2="24" />
+        <line x1="16" y1="7" x2="16" y2="33" /><line x1="24" y1="7" x2="24" y2="33" />
+      </svg>
+    ),
+    laminate: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 6l2.5 7h7.5l-6 4.5 2.5 7L20 21l-6.5 3.5 2.5-7L10 13h7.5z" />
+        <circle cx="20" cy="20" r="13" strokeDasharray="4 3" strokeWidth="1" />
+      </svg>
+    ),
+    wpc: (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 28c2-4 4-6 6-6s4 4 6 4 4-5 6-5" />
+        <rect x="7" y="10" width="26" height="18" rx="3" />
+        <line x1="7" y1="18" x2="33" y2="18" strokeDasharray="3 2" strokeWidth="1" />
+      </svg>
+    ),
+  };
+  return icons[id] || null;
+};
+
 const materials = [
-  { icon: '🌲', title: 'Teak Wood',           desc: 'Premium hardwood with natural grain. Termite-resistant and built for generations.',     bg: '#3D2B1F' },
-  { icon: '🪵', title: 'Marine Plywood',       desc: 'BWR-grade moisture-resistant ply. The backbone of long-lasting kitchen & bath units.',  bg: '#4A3525' },
-  { icon: '🔲', title: 'MDF Board',            desc: 'Ultra-smooth surface for flawless high-gloss & matte finishes. Cost-effective choice.',  bg: '#352820' },
-  { icon: '✨', title: 'High-Gloss Laminates', desc: 'Scratch-resistant in 100+ colours. Easy to clean, impossible to ignore.',               bg: '#2C1F15' },
-  { icon: '💧', title: 'WPC Boards',           desc: 'Wood-plastic composite — fully waterproof, eco-friendly, and dimensionally stable.',     bg: '#3A2818' },
+  { id: 'teak',     title: 'Teak Wood',           desc: 'Premium hardwood with natural grain. Termite-resistant and built for generations.',     bg: '#3D2B1F' },
+  { id: 'ply',      title: 'Marine Plywood',       desc: 'BWR-grade moisture-resistant ply. The backbone of long-lasting kitchen & bath units.',  bg: '#4A3525' },
+  { id: 'mdf',      title: 'MDF Board',            desc: 'Ultra-smooth surface for flawless high-gloss & matte finishes. Cost-effective choice.',  bg: '#352820' },
+  { id: 'laminate', title: 'High-Gloss Laminates', desc: 'Scratch-resistant in 100+ colours. Easy to clean, impossible to ignore.',               bg: '#2C1F15' },
+  { id: 'wpc',      title: 'WPC Boards',           desc: 'Wood-plastic composite — fully waterproof, eco-friendly, and dimensionally stable.',     bg: '#3A2818' },
 ];
 
 const processSteps = [
-  { step: '01', icon: '🤝', title: 'Free Consultation',  desc: 'We visit your space, take measurements, and understand your requirements and budget in detail.' },
-  { step: '02', icon: '✏️', title: '3D Design',          desc: 'Our designers create a photorealistic 3D render so you can visualise the result before a single nail is driven.' },
-  { step: '03', icon: '🌳', title: 'Material Selection', desc: 'Choose from our curated range of premium woods, laminates, and European hardware fittings at our showroom.' },
-  { step: '04', icon: '🪚', title: 'Manufacturing',      desc: 'All cutting, drilling and finishing happens in our own 8,000 sq.ft workshop. No outsourcing, no surprises.' },
-  { step: '05', icon: '🏠', title: 'Clean Installation', desc: 'Our team installs on-site with minimal disruption to your routine. Site cleaned before we leave.' },
+  { step: '01', id: 'chat',     title: 'Free Consultation',  desc: 'We visit your space, take measurements, and understand your requirements and budget in detail.' },
+  { step: '02', id: 'design',   title: '3D Design',          desc: 'Our designers create a photorealistic 3D render so you can visualise the result before a single nail is driven.' },
+  { step: '03', id: 'material', title: 'Material Selection', desc: 'Choose from our curated range of premium woods, laminates, and European hardware fittings at our showroom.' },
+  { step: '04', id: 'craft',    title: 'Manufacturing',      desc: 'All cutting, drilling and finishing happens in our own 8,000 sq.ft workshop. No outsourcing, no surprises.' },
+  { step: '05', id: 'install',  title: 'Clean Installation', desc: 'Our team installs on-site with minimal disruption to your routine. Site cleaned before we leave.' },
 ];
 
-const miniTestimonials = [
-  { name: 'Ananya S.', loc: 'Jubilee Hills', stars: 5, text: 'The modular kitchen exceeded every expectation. Delivery was on day 18, exactly as promised. Stunning finish.' },
-  { name: 'Kiran R.',  loc: 'Gachibowli',   stars: 5, text: 'Floor-to-ceiling wardrobe looks absolutely stunning. The LED lighting suggestion was brilliant — love it every day.' },
-];
 
 /* ── ProcessStep sub-component ── */
 function ProcessStep({ item, index, isLast }) {
@@ -153,7 +207,7 @@ function ProcessStep({ item, index, isLast }) {
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
       >
-        <div className="ps-icon">{item.icon}</div>
+        <div className="ps-icon"><SvcStepIcon id={item.id} /></div>
         <div className="ps-body">
           <div className="ps-num">STEP {item.step}</div>
           <h4>{item.title}</h4>
@@ -343,7 +397,9 @@ export default function Services() {
                   className="h-scroll-item"
                   style={{ background: `linear-gradient(160deg, ${m.bg}, #1A0A02)`, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '2.5rem 2rem' }}
                 >
-                  <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>{m.icon}</div>
+                  <div style={{ width: '64px', height: '64px', marginBottom: '1.25rem', border: '1.5px solid rgba(255,255,255,0.25)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.9)', padding: '14px', backdropFilter: 'blur(4px)', background: 'rgba(255,255,255,0.06)' }}>
+                    <MatIcon id={m.id} />
+                  </div>
                   <h3 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '1.3rem' }}>{m.title}</h3>
                   <p style={{ color: 'rgba(255,255,255,0.7)', margin: 0, fontSize: '0.9rem', lineHeight: 1.6 }}>{m.desc}</p>
                 </div>
@@ -385,28 +441,22 @@ export default function Services() {
             <h2>What Our Clients Say</h2>
             <div className="underline" />
           </motion.div>
-          <div className="svc-testimonials-row">
-            {miniTestimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                className="tcard"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease, delay: i * 0.15 }}
-              >
-                <div className="tc-stars">{'★'.repeat(t.stars)}</div>
-                <p className="tc-text">"{t.text}"</p>
-                <div className="tc-author">
-                  <div className="tc-init">{t.name[0]}</div>
-                  <div>
-                    <strong>{t.name}</strong>
-                    <span className="tc-loc">📍 {t.loc}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            style={{ textAlign: 'center', marginTop: '2rem' }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <a
+              href="https://maps.app.goo.gl/xspDJ6RNdctCrP8r9"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary btn-lg"
+            >
+              ⭐ Read Our Google Reviews
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -424,8 +474,10 @@ export default function Services() {
           <p>Book a free home visit and receive a detailed design + quote within 24 hours. No hidden charges — ever.</p>
           <div className="cta-actions">
             <Link to="/contact" className="btn btn-primary btn-lg">Book Free Visit</Link>
-            <a href="tel:+919876543210" className="btn btn-outline btn-lg">📞 Call Now</a>
-            <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-lg">💬 WhatsApp</a>
+            <a href="tel:+919840486789" className="btn btn-outline btn-lg">📞 Call Now</a>
+            <a href="https://wa.me/919840486789" target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-lg">
+              <WhatsAppIcon size={20} /> WhatsApp
+            </a>
           </div>
         </div>
       </motion.section>

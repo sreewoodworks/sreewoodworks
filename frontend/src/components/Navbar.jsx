@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 
 const links = [
   { to: '/',          label: 'Home' },
@@ -12,6 +12,8 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
+  const { pathname }            = useLocation();
+  const isHome                  = pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -29,7 +31,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+      <nav className={`navbar${(scrolled || !isHome) ? ' scrolled' : ''}`}>
         <div className="container">
           <div className="nav-inner">
             <Link to="/" className="nav-logo" onClick={close}>

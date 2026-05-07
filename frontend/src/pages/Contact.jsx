@@ -1,6 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import WhatsAppIcon from '../components/WhatsAppIcon';
+
+/* ── contact info icons ── */
+const CIIcon = ({ id }) => {
+  const icons = {
+    phone: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22"><path d="M11 8h5l2.5 6-3.5 2.5c1.5 3.5 5 7 8.5 8.5L26 21.5l6 2.5V29c0 1.5-1 2.5-2.5 2.5C15 31.5 8.5 17 8.5 11 8.5 9.5 9.5 8 11 8z"/></svg>,
+    envelope: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22"><rect x="5" y="10" width="30" height="21" rx="2.5"/><path d="M5 12l15 11 15-11"/></svg>,
+    pin: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22"><path d="M20 4C14 4 9 9 9 15c0 8 11 19 11 19s11-11 11-19c0-6-5-11-11-11z"/><circle cx="20" cy="15" r="4.5"/></svg>,
+    clock: <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22"><circle cx="20" cy="20" r="13"/><path d="M20 11v10l6 4"/></svg>,
+  };
+  return (
+    <div style={{ width:'46px', height:'46px', border:'1.5px solid rgba(200,146,42,0.3)', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', color:'var(--accent)', background:'rgba(200,146,42,0.07)', flexShrink:0 }}>
+      {icons[id] || null}
+    </div>
+  );
+};
 
 /* ── animation tokens ── */
 const ease      = [0.22, 1, 0.36, 1];
@@ -13,17 +29,15 @@ const stagger   = { hidden: {}, visible: { transition: { staggerChildren: 0.12 }
 const SERVICES = ['Modular Kitchen', 'Wardrobes', 'TV Unit', 'Doors & Windows', 'Office Furniture', 'Custom Carpentry', 'Other'];
 
 const contactItems = [
-  { icon: '📞', label: 'Phone',         value: <a href="tel:+919876543210" style={{ color: 'inherit' }}>+91 98765 43210</a> },
-  { icon: '📧', label: 'Email',         value: <a href="mailto:sreewoodworks25@gmail.com" style={{ color: 'inherit' }}>sreewoodworks25@gmail.com</a> },
-  { icon: '📍', label: 'Showroom',      value: 'Plot 42, Road No. 12, Banjara Hills, Hyderabad — 500034' },
-  { icon: '🕒', label: 'Working Hours', value: 'Monday – Saturday: 9:00 AM – 7:00 PM' },
+  { id: 'phone',    label: 'Phone',         value: <a href="tel:+919840486789" style={{ color: 'inherit' }}>+91 9840486789</a> },
+  { id: 'envelope', label: 'Email',         value: <a href="mailto:sreewoodworks25@gmail.com" style={{ color: 'inherit' }}>sreewoodworks25@gmail.com</a> },
+  { id: 'pin',      label: 'Showroom',      value: '5/129, Elango nagar, Kottivakkam, Chennai — 600041' },
+  { id: 'clock',    label: 'Working Hours', value: 'Monday – Saturday: 9:00 AM – 7:00 PM' },
 ];
 
 const socials = [
-  { label: 'Facebook',  href: '#',                          icon: '📘' },
-  { label: 'Instagram', href: '#',                          icon: '📸' },
-  { label: 'WhatsApp',  href: 'https://wa.me/919876543210', icon: '💬' },
-  { label: 'YouTube',   href: '#',                          icon: '▶️' },
+  { label: 'WhatsApp', href: 'https://wa.me/919840486789',         icon: <WhatsAppIcon size={20} /> },
+  { label: 'Email',    href: 'mailto:sreewoodworks25@gmail.com',   icon: '📧' },
 ];
 
 /* ── form validation ── */
@@ -52,8 +66,8 @@ export default function Contact() {
     e.preventDefault();
     const errs = validate(fields);
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    const body = `Name: ${fields.name}%0APhone: ${fields.phone}%0AService: ${fields.service}%0AMessage: ${fields.message}`;
-    window.open(`mailto:sreewoodworks25@gmail.com?subject=New Enquiry — ${fields.service}&body=${body}`);
+    const body = encodeURIComponent(`Hi, I'd like to enquire about ${fields.service}.\n\nName: ${fields.name}\nPhone: ${fields.phone}\nMessage: ${fields.message}`);
+    window.open(`https://wa.me/919840486789?text=${body}`, '_blank');
     setSent(true);
   };
 
@@ -116,7 +130,7 @@ export default function Contact() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, ease, delay: 0.2 + i * 0.1 }}
                   >
-                    <div className="ci-icon">{item.icon}</div>
+                    <div className="ci-icon"><CIIcon id={item.id} /></div>
                     <div className="ci-text">
                       <strong>{item.label}</strong>
                       <span>{item.value}</span>
@@ -172,12 +186,12 @@ export default function Contact() {
                     <h3>Message Sent!</h3>
                     <p>Thank you for reaching out. Our team will contact you within a few hours to discuss your project.</p>
                     <a
-                      href="https://wa.me/919876543210?text=Hi%2C%20I%20just%20submitted%20your%20contact%20form!"
+                      href="https://wa.me/919840486789?text=Hi%2C%20I%20just%20submitted%20your%20contact%20form!"
                       target="_blank"
                       rel="noreferrer"
                       className="btn btn-whatsapp"
                     >
-                      💬 Continue on WhatsApp
+                      <WhatsAppIcon size={20} /> Continue on WhatsApp
                     </a>
                   </motion.div>
                 ) : (
@@ -199,7 +213,7 @@ export default function Contact() {
                       </div>
                       <div className={`form-group${errors.phone ? ' invalid' : ''}`}>
                         <label htmlFor="phone">Phone Number *</label>
-                        <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210"
+                        <input id="phone" name="phone" type="tel" placeholder="+91 9840486789"
                           value={fields.phone} onChange={onChange} />
                         <span className="err">{errors.phone}</span>
                       </div>
@@ -264,8 +278,8 @@ export default function Contact() {
             transition={{ duration: 0.7, ease }}
           >
             <iframe
-              title="WoodCraft Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2645774937!2d78.4260613!3d17.4282489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90d01dca29dd%3A0x2c1f97dd3b36eccc!2sBanjara%20Hills%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              title="Sree Wood Works Location"
+              src="https://maps.google.com/maps?q=5%2F129+Elango+Nagar+Kottivakkam+Chennai+600041&output=embed"
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -290,22 +304,22 @@ export default function Contact() {
           </p>
           <div className="contact-cta-row">
             <motion.a
-              href="tel:+919876543210"
+              href="tel:+919840486789"
               className="btn btn-dark btn-lg"
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
             >
-              📞 Call Now: +91 98765 43210
+              📞 Call Now: +91 9840486789
             </motion.a>
             <motion.a
-              href="https://wa.me/919876543210?text=Hi%2C%20I%20need%20a%20quote%20for%20my%20carpentry%20project."
+              href="https://wa.me/919840486789?text=Hi%2C%20I%20need%20a%20quote%20for%20my%20carpentry%20project."
               target="_blank"
               rel="noreferrer"
               className="btn btn-whatsapp btn-lg"
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
             >
-              💬 WhatsApp Us
+              <WhatsAppIcon size={22} /> WhatsApp Us
             </motion.a>
           </div>
         </div>

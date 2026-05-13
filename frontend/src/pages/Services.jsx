@@ -70,7 +70,7 @@ const services = [
     icon: 'windows',
     title: 'Doors & Windows',
     bg: '#DDD0C0',
-    img: '/ai-images/custom.png',
+    img: '/ai-images/doors_windows.png',
     badge: null,
     desc: 'First impressions start at the door. We craft solid wood and engineered wood doors and windows that combine security, insulation, and beauty — built to last decades.',
     features: [

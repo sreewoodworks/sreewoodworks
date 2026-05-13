@@ -351,7 +351,7 @@ export default function Home() {
                 transition={{ duration: 0.8, ease, delay: 0.2 }}
               >
                 <img
-                  src="/portfolio-images/teakwood desk with drawers/teakwood desk with drawers 15K.png"
+                  src="/ai-images/desk_lifestyle.png"
                   alt="Teakwood Desk with Drawers"
                 />
               </motion.div>
@@ -365,7 +365,7 @@ export default function Home() {
                 transition={{ duration: 0.6, ease, delay: 0.55 }}
               >
                 <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}>
-                  <img src="/portfolio-images/Teak Elegance Console Table/Teak Elegance Console Table 4500rs.png" alt="Console Table" />
+                  <img src="/ai-images/console_lifestyle.png" alt="Console Table" />
                   <div className="fsh-mini-lbl">Console Table</div>
                 </motion.div>
               </motion.div>
@@ -379,7 +379,7 @@ export default function Home() {
                 transition={{ duration: 0.6, ease, delay: 0.7 }}
               >
                 <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}>
-                  <img src="/portfolio-images/bed/Handcrafted Teakwood cot.png" alt="Teakwood Cot" />
+                  <img src="/ai-images/bed_lifestyle.png" alt="Teakwood Cot" />
                   <div className="fsh-mini-lbl">Teakwood Cot</div>
                 </motion.div>
               </motion.div>

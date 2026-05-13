@@ -40,8 +40,8 @@ export const ALL_PRODUCTS = [
     description: 'Premium solid teakwood bed with exquisite hand-carved detailing. Available in Queen Size (₹21,000) and King Size (₹30,000). Features a sturdy box frame, high-gloss polish, and classic traditional design that adds warmth to any bedroom.',
     specs: ['Material: Solid Teakwood', 'Finish: High-Gloss Polish', 'Queen Size: ₹21,000', 'King Size: ₹30,000'],
     images: [
-      '/portfolio-images/bed/Handcrafted Teakwood cot.png',
       '/portfolio-images/bed/Handcrafted Teakwood cot queensize21k King size30k.png',
+      '/portfolio-images/bed/Handcrafted Teakwood cot.png',
     ],
   },
   {
@@ -68,8 +68,8 @@ export const ALL_PRODUCTS = [
     description: 'Complete dining set with a solid wood table and matching chairs. Spacious tabletop, comfortable seating, and a rich dark finish. Customisable for 4, 6, or 8 seater configurations. Perfect for family dining and entertaining.',
     specs: ['Material: Solid Wood', 'Finish: Dark Walnut Polish', 'Configurations: 4 / 6 / 8 Seater', 'Chairs Included'],
     images: [
-      '/portfolio-images/diningtable/Modern wooden dining set.png',
       '/portfolio-images/diningtable/Modern wooden dining set2.png',
+      '/portfolio-images/diningtable/Modern wooden dining set.png',
     ],
   },
   {
@@ -96,8 +96,8 @@ export const ALL_PRODUCTS = [
     description: 'Custom-designed modular kitchen with high-gloss shutters, soft-close hardware, and optimised storage. Engineered to fit your exact kitchen dimensions and lifestyle. Includes countertop, cabinets, and pull-out drawers.',
     specs: ['Shutters: High-Gloss Finish', 'Hardware: Soft-Close', 'Countertop: Included', 'Design: Fully Custom'],
     images: [
-      '/portfolio-images/modular kitchen/Modern minimalist L-shaped kitchen design.png',
       '/portfolio-images/modular kitchen/Modern minimalist L-shaped kitchen design2.png',
+      '/portfolio-images/modular kitchen/Modern minimalist L-shaped kitchen design.png',
     ],
   },
   {
@@ -124,8 +124,8 @@ export const ALL_PRODUCTS = [
     description: 'Contemporary three-seater sofa with a solid wood frame and premium foam cushioning. Clean lines, neutral upholstery, and durable construction for everyday comfort and style. Available in multiple fabric options.',
     specs: ['Frame: Solid Wood', 'Cushion: High-Density Foam', 'Seating: 3-Seater', 'Fabric: Customisable'],
     images: [
-      '/portfolio-images/sofa/Modern minimalist three-seater sofa.png',
       '/portfolio-images/sofa/Modern minimalist three-seater sofa2.png',
+      '/portfolio-images/sofa/Modern minimalist three-seater sofa.png',
     ],
   },
   {

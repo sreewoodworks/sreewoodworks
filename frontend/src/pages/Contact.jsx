@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import BorderedIcon from '../components/BorderedIcon';
+import { Mail } from 'lucide-react';
 
 /* ── contact info icons ── */
 const CIIcon = ({ id }) => {
@@ -31,13 +33,13 @@ const SERVICES = ['Modular Kitchen', 'Wardrobes', 'TV Unit', 'Doors & Windows', 
 const contactItems = [
   { id: 'phone',    label: 'Phone',         value: <a href="tel:+919840486789" style={{ color: 'inherit' }}>+91 9840486789</a> },
   { id: 'envelope', label: 'Email',         value: <a href="mailto:sreewoodworks25@gmail.com" style={{ color: 'inherit' }}>sreewoodworks25@gmail.com</a> },
-  { id: 'pin',      label: 'Showroom',      value: '5/129, Elango nagar, Kottivakkam, Chennai — 600041' },
+  { id: 'pin',      label: 'Showroom',      value: <a href="https://maps.app.goo.gl/xspDJ6RNdctCrP8r9" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>5/129, Elango nagar, Kottivakkam, Chennai — 600041</a> },
   { id: 'clock',    label: 'Working Hours', value: 'Monday – Saturday: 9:00 AM – 7:00 PM' },
 ];
 
 const socials = [
   { label: 'WhatsApp', href: 'https://wa.me/919840486789',         icon: <WhatsAppIcon size={20} /> },
-  { label: 'Email',    href: 'mailto:sreewoodworks25@gmail.com',   icon: '📧' },
+  { label: 'Email',    href: 'mailto:sreewoodworks25@gmail.com',   icon: <Mail size={20} /> },
 ];
 
 /* ── form validation ── */
@@ -182,7 +184,9 @@ export default function Contact() {
                     exit={{    opacity: 0, scale: 0.92, y: 20 }}
                     transition={{ duration: 0.5, ease }}
                   >
-                    <div className="success-icon">✅</div>
+                    <div className="success-icon" style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                      <BorderedIcon icon="success" size={60} />
+                    </div>
                     <h3>Message Sent!</h3>
                     <p>Thank you for reaching out. Our team will contact you within a few hours to discuss your project.</p>
                     <a

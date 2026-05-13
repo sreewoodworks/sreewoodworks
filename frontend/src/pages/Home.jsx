@@ -7,6 +7,7 @@ import {
   useInView,
 } from 'framer-motion';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import BorderedIcon from '../components/BorderedIcon';
 
 /* ─── Animation Variants ─── */
 const ease = [0.22, 1, 0.36, 1];
@@ -83,10 +84,10 @@ const HomeIcon = ({ id }) => {
 
 /* ─── Data ─── */
 const services = [
-  { icon: '🍳', label: 'Kitchen',  title: 'Modular Kitchen',  desc: 'Smart, space-saving kitchen designs with premium hardware and laminates.', badge: 'Popular',  img: '/ai-images/kitchen.png' },
-  { icon: '🚪', label: 'Wardrobe', title: 'Wardrobes',        desc: 'Floor-to-ceiling wardrobes with custom compartments for every lifestyle.',  badge: 'Trending', img: '/ai-images/wardrobe.png' },
-  { icon: '💼', label: 'Office',   title: 'Office Furniture', desc: 'Ergonomic, professional workspaces built for productivity and style.',       badge: null,       img: '/ai-images/office.png' },
-  { icon: '🪑', label: 'Custom',   title: 'Custom Carpentry', desc: 'One-of-a-kind pieces crafted exactly to your vision and specifications.',   badge: 'New',      img: '/ai-images/custom.png' },
+  { icon: 'kitchen', label: 'Kitchen',  title: 'Modular Kitchen',  desc: 'Smart, space-saving kitchen designs with premium hardware and laminates.', badge: 'Popular',  img: '/ai-images/kitchen.png' },
+  { icon: 'wardrobe', label: 'Wardrobe', title: 'Wardrobes',        desc: 'Floor-to-ceiling wardrobes with custom compartments for every lifestyle.',  badge: 'Trending', img: '/ai-images/wardrobe.png' },
+  { icon: 'office', label: 'Office',   title: 'Office Furniture', desc: 'Ergonomic, professional workspaces built for productivity and style.',       badge: null,       img: '/ai-images/office.png' },
+  { icon: 'custom', label: 'Custom',   title: 'Custom Carpentry', desc: 'One-of-a-kind pieces crafted exactly to your vision and specifications.',   badge: 'New',      img: '/ai-images/custom.png' },
 ];
 
 const craftProcess = [
@@ -97,11 +98,11 @@ const craftProcess = [
 ];
 
 const hScrollItems = [
-  { icon: '🍳', title: 'Modular Kitchens',  sub: 'Where cooking becomes a pleasure.',    bg: '#F5F0E0', img: '/scroll-image/kitchen.png' },
-  { icon: '🚪', title: 'Wardrobes',         sub: 'Every compartment, perfectly placed.',  bg: '#EDE8D5', img: '/scroll-image/wardrobe.png' },
-  { icon: '💼', title: 'Office Furniture',  sub: 'Spaces that inspire great work.',       bg: '#E8DDD0', img: '/scroll-image/office.png' },
-  { icon: '🪵', title: 'Custom Carpentry',  sub: 'One-of-a-kind — just like you.',        bg: '#DDD0C0', img: '/scroll-image/custom.png' },
-  { icon: '📺', title: 'TV & Living Units', sub: 'The focal point of every living room.', bg: '#D4C5B0', img: '/scroll-image/tv-and-livingunit.png' },
+  { icon: 'kitchen', title: 'Modular Kitchens',  sub: 'Where cooking becomes a pleasure.',    bg: '#F5F0E0', img: '/scroll-image/kitchen.png' },
+  { icon: 'wardrobe', title: 'Wardrobes',         sub: 'Every compartment, perfectly placed.',  bg: '#EDE8D5', img: '/scroll-image/wardrobe.png' },
+  { icon: 'office', title: 'Office Furniture',  sub: 'Spaces that inspire great work.',       bg: '#E8DDD0', img: '/scroll-image/office.png' },
+  { icon: 'carpentry', title: 'Custom Carpentry',  sub: 'One-of-a-kind — just like you.',        bg: '#DDD0C0', img: '/scroll-image/custom.png' },
+  { icon: 'tv', title: 'TV & Living Units', sub: 'The focal point of every living room.', bg: '#D4C5B0', img: '/scroll-image/tv-and-livingunit.png' },
 ];
 
 const whyItems = [
@@ -112,11 +113,11 @@ const whyItems = [
 ];
 
 const projects = [
-  { icon: '🍳', label: 'Kitchen', title: 'Modern Modular Kitchen',        cat: 'Kitchen', img: '/portfolio-images/modular kitchen/Modern minimalist L-shaped kitchen design.png' },
-  { icon: '🚪', label: 'Bedroom', title: 'Handcrafted Teakwood Cot',      cat: 'Bedroom', img: '/portfolio-images/bed/Handcrafted Teakwood cot.png' },
-  { icon: '💼', label: 'Office',  title: 'Teakwood Desk with Drawers',    cat: 'Office',  img: '/portfolio-images/teakwood desk with drawers/teakwood desk with drawers 15K.png' },
-  { icon: '🏠', label: 'Custom',  title: 'Teak Cane Panel Cabinet',       cat: 'Custom',  img: '/portfolio-images/Teak Cane Panel Cabinet/Teak Cane Panel Cabinet 21000rs.png' },
-  { icon: '📚', label: 'Custom',  title: 'Teakwood Round Designed Table', cat: 'Custom',  img: '/portfolio-images/teakwood round designed table/teakwood round designed table 3000rs.png' },
+  { icon: 'kitchen', label: 'Kitchen', title: 'Modern Modular Kitchen',        cat: 'Kitchen', img: '/portfolio-images/modular kitchen/Modern minimalist L-shaped kitchen design.png' },
+  { icon: 'wardrobe', label: 'Bedroom', title: 'Handcrafted Teakwood Cot',      cat: 'Bedroom', img: '/portfolio-images/bed/Handcrafted Teakwood cot.png' },
+  { icon: 'office', label: 'Office',  title: 'Teakwood Desk with Drawers',    cat: 'Office',  img: '/portfolio-images/teakwood desk with drawers/teakwood desk with drawers 15K.png' },
+  { icon: 'home', label: 'Custom',  title: 'Teak Cane Panel Cabinet',       cat: 'Custom',  img: '/portfolio-images/Teak Cane Panel Cabinet/Teak Cane Panel Cabinet 21000rs.png' },
+  { icon: 'books', label: 'Custom',  title: 'Teakwood Round Designed Table', cat: 'Custom',  img: '/portfolio-images/teakwood round designed table/teakwood round designed table 3000rs.png' },
 ];
 
 
@@ -156,9 +157,7 @@ function ProcessStep({ item, index, isLast }) {
         transition={{ duration: 0.7, ease, delay: 0.1 }}
       >
         <div className="ps-icon">
-          <div style={{ width: '60px', height: '60px', border: '1.5px solid rgba(200,146,42,0.35)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', background: 'rgba(200,146,42,0.07)', flexShrink: 0 }}>
-            <HomeIcon id={item.id} />
-          </div>
+          <BorderedIcon icon={item.id} />
         </div>
         <div className="ps-body">
           <div className="ps-num">STEP {item.step}</div>
@@ -278,14 +277,14 @@ export default function Home() {
         <div className="container">
           <div className="trust-items">
             {[
-              { icon: '✅', title: 'Licensed & Insured',     sub: 'Fully certified studio'  },
-              { icon: '🕒', title: '25+ Years Experience',   sub: 'Trusted since 1999'      },
-              { icon: '🏆', title: '1200+ Happy Clients',     sub: 'Across Tamil Nadu'        },
-              { icon: '🌳', title: 'Premium Materials Only', sub: 'Grade-A wood & hardware' },
+              { icon: 'check', title: 'Licensed & Insured',     sub: 'Fully certified studio'  },
+              { icon: 'clock', title: '25+ Years Experience',   sub: 'Trusted since 1999'      },
+              { icon: 'trophy', title: '1200+ Happy Clients',     sub: 'Across Tamil Nadu'        },
+              { icon: 'tree', title: 'Premium Materials Only', sub: 'Grade-A wood & hardware' },
             ].map(t => (
               <div className="trust-item" key={t.title}>
-                <div className="trust-icon">{t.icon}</div>
-                <div><strong>{t.title}</strong><span>{t.sub}</span></div>
+                <BorderedIcon icon={t.icon} size={48} />
+                <div style={{ marginLeft: '12px' }}><strong>{t.title}</strong><span>{t.sub}</span></div>
               </div>
             ))}
           </div>
@@ -435,9 +434,12 @@ export default function Home() {
                 transition={{ duration: 0.6, ease, delay: i * 0.08 }}
                 whileHover={{ y: -10, transition: { duration: 0.25 } }}
               >
-                <div className="sc-img">
+                <div className="sc-img" style={{ position: 'relative' }}>
                   <img src={s.img} alt={s.title} loading="lazy" />
                   {s.badge && <span className="sc-badge">{s.badge}</span>}
+                  <div style={{ position: 'absolute', top: '16px', left: '16px', zIndex: 2 }}>
+                    <BorderedIcon icon={s.icon} size={40} />
+                  </div>
                 </div>
                 <div className="sc-body">
                   <h3>{s.title}</h3>
@@ -519,10 +521,8 @@ export default function Home() {
                 transition={{ duration: 0.6, ease, delay: i * 0.1 }}
                 whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
               >
-                <div className="why-icon">
-                  <div style={{ width: '60px', height: '60px', border: '1.5px solid rgba(200,146,42,0.35)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', background: 'rgba(200,146,42,0.07)' }}>
-                    <HomeIcon id={w.id} />
-                  </div>
+                <div className="why-icon" style={{ marginBottom: '20px' }}>
+                  <BorderedIcon icon={w.id} />
                 </div>
                 <h4>{w.title}</h4>
                 <p>{w.desc}</p>
@@ -620,8 +620,8 @@ export default function Home() {
                   <div className="hsi-overlay" style={{ background: `linear-gradient(to top, #fff 0%, rgba(255,255,255,0.7) 60%, transparent 100%)` }} />
                   <div className="hsi-num">0{i + 1}</div>
                   <div className="hsi-content">
-                    <div className="hsi-icon">{item.icon}</div>
-                    <h3>{item.title}</h3>
+                    <BorderedIcon icon={item.icon} size={48} />
+                    <h3 style={{ marginTop: '16px' }}>{item.title}</h3>
                     <p>{item.sub}</p>
                   </div>
                 </div>

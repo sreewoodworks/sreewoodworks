@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import BorderedIcon from '../components/BorderedIcon';
 
 /* ── animation tokens ── */
 const ease    = [0.22, 1, 0.36, 1];
@@ -12,7 +13,7 @@ const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.12 } }
 const services = [
   {
     id: 'kitchen',
-    icon: '🍳',
+    icon: 'kitchen',
     title: 'Modular Kitchen',
     bg: '#F5F0E0',
     img: '/ai-images/kitchen.png',
@@ -30,7 +31,7 @@ const services = [
   },
   {
     id: 'wardrobe',
-    icon: '🚪',
+    icon: 'wardrobe',
     title: 'Wardrobes',
     bg: '#EDE8D5',
     img: '/ai-images/wardrobe.png',
@@ -48,7 +49,7 @@ const services = [
   },
   {
     id: 'tv',
-    icon: '📺',
+    icon: 'tv',
     title: 'TV Units',
     bg: '#E8DDD0',
     img: '/ai-images/kitchen.png', // Reusing kitchen or generating more if needed, but for now I'll use what's available
@@ -66,7 +67,7 @@ const services = [
   },
   {
     id: 'doors',
-    icon: '🪟',
+    icon: 'windows',
     title: 'Doors & Windows',
     bg: '#DDD0C0',
     img: '/ai-images/custom.png',
@@ -84,7 +85,7 @@ const services = [
   },
   {
     id: 'office',
-    icon: '💼',
+    icon: 'office',
     title: 'Office Furniture',
     bg: '#D4C5B0',
     img: '/ai-images/office.png',
@@ -102,7 +103,7 @@ const services = [
   },
   {
     id: 'custom',
-    icon: '🪵',
+    icon: 'carpentry',
     title: 'Custom Carpentry',
     bg: '#C8BDA8',
     img: '/ai-images/custom.png',
@@ -207,7 +208,7 @@ function ProcessStep({ item, index, isLast }) {
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
       >
-        <div className="ps-icon"><SvcStepIcon id={item.id} /></div>
+        <div className="ps-icon"><BorderedIcon icon={item.id === 'chat' ? 'whatsapp' : item.id} /></div>
         <div className="ps-body">
           <div className="ps-num">STEP {item.step}</div>
           <h4>{item.title}</h4>

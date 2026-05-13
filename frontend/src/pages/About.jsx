@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
+import BorderedIcon from '../components/BorderedIcon';
 
 /* ── about page icons ── */
 const AboutIcon = ({ id, size = 24 }) => {
@@ -42,9 +43,9 @@ const values = [
 ];
 
 const badges = [
-  { icon: '✅', text: 'ISO 9001 Certified Studio' },
-  { icon: '🌳', text: 'FSC Certified Wood Sources' },
-  { icon: '🏠', text: 'Free Home Consultation' },
+  { icon: 'check', text: 'ISO 9001 Certified Studio' },
+  { icon: 'tree', text: 'FSC Certified Wood Sources' },
+  { icon: 'home', text: 'Free Home Consultation' },
 ];
 
 /* ── animated counter ── */
@@ -126,7 +127,9 @@ export default function About() {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.8, ease }}
             >
-              <div className="about-main-img">🪵</div>
+              <div className="about-main-img">
+                <BorderedIcon icon="carpentry" size={120} />
+              </div>
               <div className="about-badge">
                 <div className="num">15+</div>
                 <div className="lbl">Years of Excellence</div>
@@ -161,8 +164,8 @@ export default function About() {
               </div>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
                 {badges.map(b => (
-                  <span key={b.text} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-dark)' }}>
-                    {b.icon} {b.text}
+                  <span key={b.text} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-dark)' }}>
+                    <BorderedIcon icon={b.icon} size={32} /> {b.text}
                   </span>
                 ))}
               </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import WhatsAppIcon from './WhatsAppIcon';
+import { Mail } from 'lucide-react';
 
 const ContactSvg = {
   pin: (
@@ -53,7 +54,7 @@ export default function Footer() {
               <a href="https://wa.me/919840486789" className="soc-btn" aria-label="WhatsApp" target="_blank" rel="noreferrer">
                 <WhatsAppIcon size={18} />
               </a>
-              <a href="mailto:sreewoodworks25@gmail.com" className="soc-btn" aria-label="Email">📧</a>
+              <a href="mailto:sreewoodworks25@gmail.com" className="soc-btn" aria-label="Email"><Mail size={18} /></a>
             </div>
           </div>
 
@@ -85,7 +86,7 @@ export default function Footer() {
           <div className="footer-col">
             <h5>Contact Us</h5>
             <ul className="footer-contact-list">
-              <li className="fci"><IconBox svg={ContactSvg.pin}     /><span>5/129, Elango nagar, Kottivakkam, Chennai — 600041</span></li>
+              <li className="fci"><IconBox svg={ContactSvg.pin}     /><a href="https://maps.app.goo.gl/xspDJ6RNdctCrP8r9" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>5/129, Elango nagar, Kottivakkam, Chennai — 600041</a></li>
               <li className="fci"><IconBox svg={ContactSvg.phone}   /><a href="tel:+919840486789">+91 9840486789</a></li>
               <li className="fci"><IconBox svg={ContactSvg.envelope}/><a href="mailto:sreewoodworks25@gmail.com">sreewoodworks25@gmail.com</a></li>
               <li className="fci"><IconBox svg={ContactSvg.clock}   /><span>Mon – Sat: 9 AM – 7 PM</span></li>
